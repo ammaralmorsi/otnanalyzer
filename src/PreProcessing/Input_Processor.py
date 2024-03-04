@@ -1,11 +1,16 @@
 
 
 
-
 class InputProcessor:
 
-    def Frames_File_Reader(self , file_path):
+    def __init__(self , filepath):
 
+        self.Original_File = self.Frames_File_Reader(filepath)
+        self.File_in_HEX = self.Convert_To_HEX(self.Original_File)
+        self.File_in_OTN = self.Convert_To_OTN_Frame_Format(self.File_in_HEX)
+
+
+    def Frames_File_Reader(self , file_path):
             try:
                 with open(file_path, 'r') as file:
                     OTN_Frames = file.read()
@@ -17,42 +22,24 @@ class InputProcessor:
 
     def Convert_To_HEX(self, OTN_Frame_Row):
 
-            # Split the decimal row into individual decimal values
+
             decimal_values = OTN_Frame_Row.split()
 
             # Convert each decimal value to hexadecimal
             hex_values = [hex(int(value))[2:].zfill(2) for value in decimal_values]
 
-            return hex_values
+            hex_in_original_form = ' '.join(hex_values)
+
+            return hex_in_original_form
 
 
     def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame):
 
-
             values = HEX_OTN_Frame.split()
 
-            # Divide the values into 4 rows, each with 3824 values
             rows = [values[i:i + 3824] for i in range(0, len(values), 3824)]
-
-
-            # this is just to ensure , you can comment this part
-            for i, row in enumerate(rows):
-                print(f"Length of row {i + 1}: {len(row)}")
 
             return rows
 
-
-# test  = InputProcessor()
-#
-# path = "A:/Ahmed_SH/Siemens Projects/otnanalyzer/Input Tests/input.txt"
-#
-# obj = test.Frames_File_Reader(path)
-#
-# rows = test.Convert_To_OTN_Frame(obj)
-#
-#
-# for row in rows:
-#     print(len(row))
-#     print(row)
 
 
