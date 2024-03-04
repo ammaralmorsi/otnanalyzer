@@ -6,11 +6,12 @@ class InputProcessor:
     def __init__(self , filepath):
 
         self.Original_File = self.Frames_File_Reader(filepath)
-        self.File_in_HEX = self.Convert_To_HEX(self.Original_File)
-        self.File_in_OTN = self.Convert_To_OTN_Frame_Format(self.File_in_HEX)
+        self.File_in_HEX =   self.Convert_To_HEX(self.Original_File)
+        self.File_in_OTN =   self.Convert_To_OTN_Frame_Format(self.File_in_HEX)
 
 
     def Frames_File_Reader(self , file_path):
+
             try:
                 with open(file_path, 'r') as file:
                     OTN_Frames = file.read()
@@ -19,6 +20,7 @@ class InputProcessor:
             except FileNotFoundError:
                 print(f"File '{file_path}' not found.")
                 return None
+
 
     def Convert_To_HEX(self, OTN_Frame_Row):
 

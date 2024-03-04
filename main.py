@@ -11,8 +11,15 @@ opu = OPUFrame(test.File_in_OTN)
 x = opu.OPU_OverHead_Constructor(test.File_in_OTN)
 
 
+# for row in test.File_in_OTN:
+#     print(row)
+
+
 for rows in x:
     print(rows)
+
+# for rows in x:
+#     print(rows[0] + " " + rows[1])
 
 
 
