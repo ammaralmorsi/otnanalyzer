@@ -1,8 +1,8 @@
-from src.FrameBuilder import OPU_Frame
-from src.FrameBuilder.OPU_Frame import OPUFrame
-from src.PreProcessing.Input_Processor import InputProcessor
+from src.backend.FrameBuilder import OPU_Frame
+from src.backend.FrameBuilder.OPU_Frame import OPUFrame
+from src.backend.PreProcessing.Input_Processor import InputProcessor
 
-file_path = "A:/Ahmed_SH/Siemens Projects/otnanalyzer/Input Tests/input.txt"
+file_path = "A:/Ahmed_SH/Siemens Projects/otnanalyzer/InputTests/input.txt"
 
 test = InputProcessor(file_path)
 

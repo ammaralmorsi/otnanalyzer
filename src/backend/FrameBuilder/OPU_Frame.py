@@ -2,7 +2,6 @@
 
 class OPUFrame:
 
-    #OPUk_payload_area = [4][3808]
 
     def __init__(self , OTN_Frame):
 
@@ -21,7 +20,7 @@ class OPUFrame:
         self.OPU_Columns = [row[14:3824] for row in OTN_Frame]
         return self.OPU_Columns
 
-    # needs to be tested
+
 
     def OPU_Payload_Constructor(self , OTN_Frame):
 
