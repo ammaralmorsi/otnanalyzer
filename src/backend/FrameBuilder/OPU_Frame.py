@@ -1,4 +1,9 @@
 
+from enum import Enum
+
+
+class OPU_Overheads(Enum):
+    JC1 = "dedferf1"
 
 class OPUFrame:
 
@@ -23,11 +28,9 @@ class OPUFrame:
 
     def OPU_Payload_Constructor(self , OTN_Frame):
 
-        self.OPU_Payload_Columns = [row[17:3824] for row in OTN_Frame]
-        self.OPU_Payload_Partial_Column = [row[17] for row in OTN_Frame[:3]]
-        for i, value in enumerate(self.OPU_Payload_Partial_Column):
-            self.OPU_Payload_Columns[i].insert(0, value)
+        self.OPU_Payload_Columns = [row[16:3824] for row in OTN_Frame]
 
+        #self.OPU_Payload_Columns[3].pop(0)
         return self.OPU_Payload_Columns
 
     def OPU_OverHead_Constructor(self , OTN_Frame):
@@ -46,20 +49,21 @@ class OPU_Overhead:
         self.OPU_OH_Second_Column = 1
         self.OPU_Overhead_Finder = {}
 
-    def JC_Constrcutor(self):
+    def OPU_OverHead_Fields_Constrcutor(self):
 
-        # constructing the JC 1-6
+        self.OPU_Overhead_Finder[OPU_Overheads.JC1] = self.OPU_OverHead_Frame[0][self.OPU_OH_Second_Column]
+        self.OPU_Overhead_Finder['JC2'] = self.OPU_OverHead_Frame[1][self.OPU_OH_Second_Column]
+        self.OPU_Overhead_Finder['JC3'] = self.OPU_OverHead_Frame[2][self.OPU_OH_Second_Column]
+        self.OPU_Overhead_Finder['JC4'] = self.OPU_OverHead_Frame[0][self.OPU_OH_First_Column]
+        self.OPU_Overhead_Finder['JC5'] = self.OPU_OverHead_Frame[1][self.OPU_OH_First_Column]
+        self.OPU_Overhead_Finder['JC6'] = self.OPU_OverHead_Frame[2][self.OPU_OH_First_Column]
 
-        self.OPU_Overhead_Finder['JC1'] = self.OPU_OverHead_Frame[0][1]
-        self.OPU_Overhead_Finder['JC2'] = self.OPU_OverHead_Frame[1][1]
-        self.OPU_Overhead_Finder['JC3'] = self.OPU_OverHead_Frame[2][1]
-        self.OPU_Overhead_Finder['JC4'] = self.OPU_OverHead_Frame[0][0]
-        self.OPU_Overhead_Finder['JC5'] = self.OPU_OverHead_Frame[1][0]
-        self.OPU_Overhead_Finder['JC6'] = self.OPU_OverHead_Frame[2][0]
+        self.OPU_Overhead_Finder['PSI'] = self.OPU_OverHead_Frame[3][self.OPU_OH_First_Column]
+        self.OPU_Overhead_Finder['NJO'] = self.OPU_OverHead_Frame[3][self.OPU_OH_Second_Column]
+        self.OPU_Overhead_Finder['PJO'] = self.OPU_OverHead_Frame[3][2]
 
-    def OPU_Non_JC_Overhead_Constructor(self):
-        self.OPU_Overhead_Finder['PSI'] = self.OPU_OverHead_Frame[3][0]
-        self.OPU_Overhead_Finder['NJO'] = self.OPU_OverHead_Frame[3][1]
+        return self.OPU_Overhead_Finder
+
 
     def OPU_OverHead_Field_Finder(self , OPU_Field):
         return self.OPU_Overhead_Finder[OPU_Field]

@@ -35,7 +35,7 @@ class InputProcessor:
             return hex_in_original_form
 
 
-    def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame):
+    def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame , Type):
 
             values = HEX_OTN_Frame.split()
 

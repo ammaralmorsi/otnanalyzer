@@ -18,11 +18,18 @@ class OTN:
         self.OTU = OTUFrame()
         self.Divided_OTN = [self.ODU, self.OPU, self.OTU]
 
-        self.fields = {}
+        self.Frame_Fields = {}
 
 
     def Fields_Constructor(self):
-        self.fields['OPU'] = None
+
+        self.Frame_Fields['OPU'] = self.OPU.OPU_Overhead.OPU_OverHead_Fields_Constrcutor()
+
+        # same for ODU
+        self.Frame_Fields['ODU'] = None
+
+        # same for OTU
+        self.Frame_Fields['OTU'] = None
 
 
     def Construct_OPU(self): None
