@@ -66,7 +66,7 @@ Fortunately, the OTN analyzer doesn't need to process all the frame fields, but 
 ![image](https://github.com/ammaralmorsi/otnanalyzer/assets/88221190/c9dc84f6-d46b-4bd2-b269-3c6d4d63741b)
 
 ## References
-![OTN Standard](https://www.itu.int/rec/T-REC-G.709-202006-I/en)
+[OTN Standard](https://www.itu.int/rec/T-REC-G.709-202006-I/en)
 
 
 
