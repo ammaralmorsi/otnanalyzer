@@ -1,5 +1,5 @@
 
-
+from Configuration.OTN_Fields_Config import Frames_Size
 
 class InputProcessor:
 
@@ -7,7 +7,9 @@ class InputProcessor:
 
         self.Original_File = self.Frames_File_Reader(filepath)
         self.File_in_HEX =   self.Convert_To_HEX(self.Original_File)
-        self.File_in_OTN =   self.Convert_To_OTN_Frame_Format(self.File_in_HEX)
+        self.File_in_STND_Format =   self.Convert_To_OTN_Frame_Format(self.File_in_HEX)
+
+        #return self.File_in_STND_Format
 
 
     def Frames_File_Reader(self , file_path):
@@ -35,7 +37,9 @@ class InputProcessor:
             return hex_in_original_form
 
 
-    def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame , Type):
+    def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame):
+
+            #Frame_Range = Frames_Size.Frame_Type.value.end - Frames_Size.Frame_Type.value.start
 
             values = HEX_OTN_Frame.split()
 
