@@ -126,14 +126,14 @@ class OTN_OH(Enum):
 
     OTU_SM = OTN_Field_Data(parent_type="OTU", row_num=0, column_start=7 , column_end=9 , num_of_bits=24 , inner_levels= OTU_SM_inner_levels)
 
-    OTU_GCC0 = OTN_Field_Data(parent_type="OTU", row_num=1, column_start=10 , column_end=11, num_of_bits=16)
-    OTU_OSMC = OTN_Field_Data(parent_type="OTU", row_num=1, column_start=12)
-    OTU_RES = OTN_Field_Data(parent_type="OTU", row_num=1, column_start=13)
+    OTU_GCC0 = OTN_Field_Data(parent_type="OTU", row_num=0, column_start=10 , column_end=11, num_of_bits=16)
+    OTU_OSMC = OTN_Field_Data(parent_type="OTU", row_num=0, column_start=12)
+    OTU_RES = OTN_Field_Data(parent_type="OTU", row_num=0, column_start=13)
 
 ############################################################################################################
 
 
 # Frame Alignment Overheads Config :
 
-    FA_FAS = OTN_Field_Data(parent_type="FA", row_num=1, column_start=0, column_end= 5, num_of_bits=48)
-    FA_MFAS = OTN_Field_Data(parent_type="FA", row_num=1, column_start=6)
+    FA_FAS = OTN_Field_Data(parent_type="FA", row_num=0, column_start= 0, column_end= 5, num_of_bits=48)
+    FA_MFAS = OTN_Field_Data(parent_type="FA", row_num=0, column_start= 6)
