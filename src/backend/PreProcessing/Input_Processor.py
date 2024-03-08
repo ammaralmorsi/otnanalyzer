@@ -1,16 +1,20 @@
+import logging
 
-from Configuration.OTN_Frames_Column_Ranges import Frames_Size
+from Configuration.OTN_Frames_Column_Ranges import OTN_Frames
+from Exceptions.Exceptions import CustomException
 
 class InputProcessor:
 
-    def __init__(self , filepath):
+    def __init__(self , filepath , Frame_Type):
 
         self.Original_File = self.Frames_File_Reader(filepath)
         self.File_in_HEX =   self.Convert_To_HEX(self.Original_File)
-        self.File_in_STND_Format =   self.Convert_To_OTN_Frame_Format(self.File_in_HEX)
+        self.File_in_STND_Format =   self.Convert_To_OTN_Frame_Format(self.File_in_HEX , Frame_Type)
 
-        #return self.File_in_STND_Format
 
+
+    def get_File_in_STND_Format(self):
+        return self.File_in_STND_Format
 
     def Frames_File_Reader(self , file_path):
 
@@ -37,15 +41,20 @@ class InputProcessor:
             return hex_in_original_form
 
 
-    def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame):
+    def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame , FrameType):
 
-            #Frame_Range = Frames_Size.Frame_Type.value.end - Frames_Size.Frame_Type.value.start
 
+        try:
+            frame_size = OTN_Frames.FRAME_SIZES.get(FrameType)
             values = HEX_OTN_Frame.split()
 
-            rows = [values[i:i + 3824] for i in range(0, len(values), 3824)]
+            # Break the values into rows based on the frame size
+            rows = [values[i:i + frame_size] for i in range(0, len(values), frame_size)]
 
             return rows
+
+        except CustomException as e:
+            logging.error("Frame type of input file is not found")
 
 
 

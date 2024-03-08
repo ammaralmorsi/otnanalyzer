@@ -6,24 +6,21 @@ from src.backend.FrameBuilder.OTU_Frame import OTUFrame
 
 from src.backend.PreProcessing.Input_Processor import InputProcessor
 from Configuration.OTN_Fields_Config import OTN_OH
-from Configuration.OTN_Frames_Column_Ranges import Frame_Column_Range
+from Configuration.OTN_Frames_Column_Ranges import OTN_Frames
 from Configuration.OTN_Field_Data import OTN_Field_Data
-from Configuration.Log_Config import Logger
-import os , logging
 
+from Configuration.Log_Config import Logger
+
+import os , logging
 
 Logger.log_init()
 
 file_path = "A:/Ahmed_SH/Siemens Projects/otnanalyzer/InputTests/input.txt"
 
-test = InputProcessor(file_path)
+test = InputProcessor(file_path , "OPU").get_File_in_STND_Format()
 
-opu = OPUFrame(test.File_in_STND_Format)
-
-opu.OPU_Overhead.OPU_OverHead_Fields_Constrcutor()
-
-print(opu.OPU_Overhead.OPU_OverHead_Field_Finder(OTN_OH.OPU_JC1))
-
+for i in test:
+    print(i)
 
 
 
