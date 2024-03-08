@@ -105,9 +105,24 @@ class ODU_Frame:
         self.ODU_Overhead_data_mapper = {
             OTN_OH.ODU_PM_BEI_BIAE: int(binary_data[0:4], 2),
             OTN_OH.ODU_PM_BDI: int(binary_data[4]),
-            OTN_OH.ODU_PM_STAT: int(binary_data[5:8], 2)
+            OTN_OH.ODU_PM_STAT: int(binary_data[5:8], 2),
+            OTN_OH.ODU_PM_TTI: self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][0],
+            OTN_OH.ODU_PM_BIP_8: self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][1]
         }
 
+    def ODU_PM_inner_Overhead_Constructor(self):
+
+        PM_TCM_Data = self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM]
+        print(PM_TCM_Data)
+        binary_data = bin(int(PM_TCM_Data, 16))[2:].zfill(8)
+
+        self.ODU_Overhead_data_mapper = {
+            OTN_OH.ODU_PM_TCM_DMt1: hex(int(binary_data[0], 2)),
+            OTN_OH.ODU_PM_BDI: int(binary_data[4]),
+            OTN_OH.ODU_PM_STAT: int(binary_data[5:8], 2),
+            OTN_OH.ODU_PM_TTI: self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][0],
+            OTN_OH.ODU_PM_BIP_8: self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][1]
+        }
 
     def ODU_OverHead_Field_Finder(self , ODU_Field):
         return self.ODU_Overhead_data_mapper[ODU_Field]
