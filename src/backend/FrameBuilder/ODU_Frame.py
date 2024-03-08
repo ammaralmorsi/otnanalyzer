@@ -99,13 +99,12 @@ class ODU_Frame:
 
     def ODU_PM_inner_Overhead_Constrcutor(self):
         PM_Data = self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][2]
-        print(PM_Data)
         binary_data = bin(int(PM_Data, 16))[2:].zfill(8)
 
         self.ODU_Overhead_data_mapper = {
-            OTN_OH.ODU_PM_BEI_BIAE: int(binary_data[0:4], 2),
-            OTN_OH.ODU_PM_BDI: int(binary_data[4]),
-            OTN_OH.ODU_PM_STAT: int(binary_data[5:8], 2),
+            OTN_OH.ODU_PM_BEI_BIAE: hex(int(binary_data[0:4], 2))[2:],  # [2:] to remove the '0x' of the hex
+            OTN_OH.ODU_PM_BDI: hex(int(binary_data[4]))[2:],
+            OTN_OH.ODU_PM_STAT: hex(int(binary_data[5:8], 2))[2:],
             OTN_OH.ODU_PM_TTI: self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][0],
             OTN_OH.ODU_PM_BIP_8: self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][1]
         }
@@ -113,16 +112,26 @@ class ODU_Frame:
     def ODU_PM_inner_Overhead_Constructor(self):
 
         PM_TCM_Data = self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM]
-        print(PM_TCM_Data)
         binary_data = bin(int(PM_TCM_Data, 16))[2:].zfill(8)
 
         self.ODU_Overhead_data_mapper = {
-            OTN_OH.ODU_PM_TCM_DMt1: hex(int(binary_data[0], 2)),
-            OTN_OH.ODU_PM_BDI: int(binary_data[4]),
-            OTN_OH.ODU_PM_STAT: int(binary_data[5:8], 2),
+            OTN_OH.ODU_PM_TCM_DMt1: hex(int(binary_data[0], 2))[2:],
+            OTN_OH.ODU_PM_TCM_DMt2: hex(int(binary_data[1], 2))[2:],
+            OTN_OH.ODU_PM_TCM_DMt3: hex(int(binary_data[2], 2))[2:],
+            OTN_OH.ODU_PM_TCM_DMt4: hex(int(binary_data[3], 2))[2:],
+            OTN_OH.ODU_PM_TCM_DMt5: hex(int(binary_data[4], 2))[2:],
+            OTN_OH.ODU_PM_TCM_DMt6: hex(int(binary_data[5], 2))[2:],
             OTN_OH.ODU_PM_TTI: self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][0],
             OTN_OH.ODU_PM_BIP_8: self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM][1]
         }
+
+    def ODU_TCMi_inner_Overhead_Constructor(self):
+
+        TCMi_keys = [OTN_OH.ODU_TCM1 , OTN_OH.ODU_TCM2 , OTN_OH.ODU_TCM3 , OTN_OH.ODU_TCM4 , OTN_OH.ODU_TCM5 , OTN_OH.ODU_TCM6]
+        for i in TCMi_keys:
+            None
+
+
 
     def ODU_OverHead_Field_Finder(self , ODU_Field):
         return self.ODU_Overhead_data_mapper[ODU_Field]
