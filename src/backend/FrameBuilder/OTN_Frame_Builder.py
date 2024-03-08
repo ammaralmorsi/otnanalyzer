@@ -1,8 +1,8 @@
 
 from src.backend.PreProcessing import Input_Processor
-from src.backend.FrameBuilder.OPU_Frame import OPUFrame
-from src.backend.FrameBuilder.OTU_Frame import OTUFrame
-from src.backend.FrameBuilder.ODU_Frame import ODUFrame
+from src.backend.FrameBuilder.OPU_Frame import OPU_Frame
+from src.backend.FrameBuilder.OTU_Frame import OTU_Frame
+from src.backend.FrameBuilder.ODU_Frame import ODU_Frame
 
 
 
@@ -13,9 +13,9 @@ class OTN:
     def __init__(self , filepath):
 
         self.PreProcessor = Input_Processor()
-        self.OPU = OPUFrame()
-        self.ODU = ODUFrame()
-        self.OTU = OTUFrame()
+        self.OPU = OPU_Frame()
+        self.ODU = ODU_Frame()
+        self.OTU = OTU_Frame()
         self.Divided_OTN = [self.ODU, self.OPU, self.OTU]
 
         self.Frame_Fields = {}

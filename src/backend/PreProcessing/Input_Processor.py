@@ -1,7 +1,7 @@
 import logging
 
 from Configuration.OTN_Frames_Column_Ranges import OTN_Frames
-from Exceptions.Exceptions import CustomException
+from Exceptions.Custom_Exception import CustomException
 
 class InputProcessor:
 
