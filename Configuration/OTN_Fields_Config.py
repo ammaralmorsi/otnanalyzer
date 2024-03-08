@@ -90,12 +90,12 @@ class OTN_OH(Enum):
         'STAT': ODU_PM_STAT,
     }
 
-    ODU_PM = OTN_Field_Data(parent_type="ODU", row_num=2, column_start=9, column_end=11 ,num_of_bits=24 , inner_levels=ODU_PM_inner_levels)
+    ODU_PM = OTN_Field_Data(parent_type="ODU", row_num=2, column_start=9, column_end=12 ,num_of_bits=24 , inner_levels=ODU_PM_inner_levels)
 
     ODU_EXP3 = OTN_Field_Data(parent_type="ODU", row_num=1, column_start=12 , column_end= 13, num_of_bits=16)
 
-    ODU_GCC1 = OTN_Field_Data(parent_type="ODU", row_num=3, column_start=0, column_end= 1,num_of_bits=16)
-    ODU_GCC2 = OTN_Field_Data(parent_type="ODU", row_num=3, column_start=2, column_end= 3, num_of_bits=16)
+    ODU_GCC1 = OTN_Field_Data(parent_type="ODU", row_num=3, column_start=0, column_end= 2,num_of_bits=16)
+    ODU_GCC2 = OTN_Field_Data(parent_type="ODU", row_num=3, column_start=2, column_end= 4, num_of_bits=16)
 
     ODU_APS_PCC = OTN_Field_Data(parent_type="ODU", row_num=3, column_start=4, column_end=7 ,  num_of_bits=32)
     ODU_RES2 = OTN_Field_Data(parent_type="ODU", row_num=3, column_start=8, column_end=13 ,num_of_bits=48)

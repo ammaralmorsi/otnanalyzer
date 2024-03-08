@@ -3,7 +3,7 @@ import logging
 from src.backend.FrameBuilder import OPU_Frame
 from src.backend.FrameBuilder.OPU_Frame import OPU_Frame
 from src.backend.FrameBuilder.OTU_Frame import OTU_Frame
-
+from src.backend.FrameBuilder.ODU_Frame import ODU_Frame
 from src.backend.PreProcessing.Input_Processor import InputProcessor
 from Configuration.OTN_Fields_Config import OTN_OH
 from Configuration.OTN_Frames_Column_Ranges import OTN_Frames
@@ -22,6 +22,7 @@ test = InputProcessor(file_path , "OTN").get_File_in_STND_Format()
 # for i in test:
 #     print(i)
 
-otu = OTU_Frame(test)
+odu = ODU_Frame(test)
 
-print(otu.OTU_OverHead_Field_Finder(OTN_OH.OTU_GCC0))
+
+print(odu.ODU_OverHead_Field_Finder(OTN_OH.ODU_PM_STAT))
