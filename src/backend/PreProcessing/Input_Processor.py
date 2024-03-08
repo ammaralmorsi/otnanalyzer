@@ -44,17 +44,15 @@ class InputProcessor:
     def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame , FrameType):
 
 
-        try:
-            frame_size = OTN_Frames.FRAME_SIZES.get(FrameType)
+        frame_size = OTN_Frames.FRAME_SIZES.get(FrameType)
+
+        if frame_size is not None:
             values = HEX_OTN_Frame.split()
-
-            # Break the values into rows based on the frame size
             rows = [values[i:i + frame_size] for i in range(0, len(values), frame_size)]
-
             return rows
 
-        except CustomException as e:
-            logging.error("Frame type of input file is not found")
+        else:
+            logging.error("FrameType key not found")
 
 
 

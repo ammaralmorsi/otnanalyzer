@@ -2,7 +2,7 @@ from Configuration.OTN_Fields_Config import OTN_OH
 from Exceptions.Exceptions import CustomException
 import logging
 
-class OTUFrame:
+class OTU_Frame:
 
     def __init__(self , Frame):
         self.Frame = Frame

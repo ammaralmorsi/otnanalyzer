@@ -1,2 +1,2 @@
-class ODUFrame:
+class ODU_Frame:
     None

@@ -8,6 +8,6 @@ class OTN_Frames():
     FRAME_SIZES = {
         'OTN' : 3824,
         'OPU' : 3810,
-        'ODU' : 15,
-        'OTU' : 15,
+        'ODU' : 16,
+        'OTU' : 16,
     }
