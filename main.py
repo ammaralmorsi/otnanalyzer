@@ -22,7 +22,6 @@ test = InputProcessor(file_path , "OTN").get_File_in_STND_Format()
 # for i in test:
 #     print(i)
 
-opu = OPU_Frame(test)
+otu = OTU_Frame(test)
 
-print(opu.OPU_Overhead.OPU_OverHead_Field_Finder(OTN_OH.OPU_JC1))
-
+print(otu.OTU_OverHead_Field_Finder(OTN_OH.OTU_GCC0))
