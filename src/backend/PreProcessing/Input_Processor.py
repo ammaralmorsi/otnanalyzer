@@ -1,5 +1,5 @@
 
-from Configuration.OTN_Fields_Config import Frames_Size
+from Configuration.OTN_Frames_Column_Ranges import Frames_Size
 
 class InputProcessor:
 
