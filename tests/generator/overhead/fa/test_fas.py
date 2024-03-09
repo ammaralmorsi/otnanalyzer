@@ -1,5 +1,6 @@
 import unittest
-from generator.overhead.fa.fas import FASOverheadGenerator
+
+from generator.overhead.fa import FASOverheadGenerator
 
 
 class TestFASOverheadGenerator(unittest.TestCase):
@@ -7,6 +8,6 @@ class TestFASOverheadGenerator(unittest.TestCase):
         expected: list[int] = [246, 246, 246, 40, 40, 40]
 
         fas_generator = FASOverheadGenerator()
-        self.assertListEqual(fas_generator.get_next_value(), expected)
-        self.assertListEqual(fas_generator.get_next_value(), expected)
-        self.assertListEqual(fas_generator.get_next_value(), expected)
+        self.assertListEqual(fas_generator.get_next_value().as_int_list, expected)
+        self.assertListEqual(fas_generator.get_next_value().as_int_list, expected)
+        self.assertListEqual(fas_generator.get_next_value().as_int_list, expected)
