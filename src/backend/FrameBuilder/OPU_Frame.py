@@ -32,8 +32,15 @@ class OPU_Frame:
 
         self.OPU_Overhead_Columns = [row[14:16] for row in self.Frame]
         self.OPU_Overhead_Columns[3].append(self.Frame[3][16])
+        #self.OPU_total = sum(int(hex_num, 16) for hex_num in self.OPU_Overhead_Columns[3])
+
         return self.OPU_Overhead_Columns
 
+        # total = hex(sum(int(hex_num, 16) for hex_num in self.OPU_Overhead_Columns[3]))
+        #
+        # # If the total is a negative number, remove the minus sign from the hexadecimal representation
+        # if total.startswith('-'):
+        #     total = '-' + total[3:]
 
 class OPU_Overhead:
 
@@ -44,41 +51,18 @@ class OPU_Overhead:
 
     def OPU_OverHead_Fields_Constrcutor(self):
 
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_JC1] = (
-            self.Frame[OTN_OH.OPU_JC1.value.row_num][OTN_OH.OPU_JC1.value.column_start]
-        )
+        self.OPU_OH = [
+            OTN_OH.OPU_JC1 , OTN_OH.OPU_JC2 , OTN_OH.OPU_JC3 , OTN_OH.OPU_JC4 ,
+            OTN_OH.OPU_JC5 , OTN_OH.OPU_JC6 , OTN_OH.OPU_PSI , OTN_OH.OPU_NJO_OMFI,
+            OTN_OH.OPU_PJO
+        ]
 
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_JC2] = (
-            self.Frame[OTN_OH.OPU_JC2.value.row_num][OTN_OH.OPU_JC2.value.column_start]
-        )
+        for i in self.OPU_OH:
 
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_JC3] = (
-            self.Frame[OTN_OH.OPU_JC3.value.row_num][OTN_OH.OPU_JC3.value.column_start]
-        )
+            self.OPU_Overhead_data_mapper[i] = (
+                self.Frame[i.value.row_num][i.value.column_start]
+            )
 
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_JC4] = (
-            self.Frame[OTN_OH.OPU_JC4.value.row_num][OTN_OH.OPU_JC4.value.column_start]
-        )
-
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_JC5] = (
-            self.Frame[OTN_OH.OPU_JC5.value.row_num][OTN_OH.OPU_JC5.value.column_start]
-        )
-
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_JC6] = (
-            self.Frame[OTN_OH.OPU_JC6.value.row_num][OTN_OH.OPU_JC6.value.column_start]
-        )
-
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_PSI] = (
-            self.Frame[OTN_OH.OPU_PSI.value.row_num][OTN_OH.OPU_PSI.value.column_start]
-        )
-
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_NJO_OMFI] = (
-            self.Frame[OTN_OH.OPU_NJO_OMFI.value.row_num][OTN_OH.OPU_NJO_OMFI.value.column_start]
-        )
-
-        self.OPU_Overhead_data_mapper[OTN_OH.OPU_PJO] = (
-            self.Frame[OTN_OH.OPU_PJO.value.row_num][OTN_OH.OPU_PJO.value.column_start]
-        )
         return self.OPU_Overhead_data_mapper
 
 
@@ -88,3 +72,8 @@ class OPU_Overhead:
         except CustomException as e:
             logging.error("OPU Field key not found")
 
+
+    def Visualize_OPU(self):
+        for i in self.OPU_OH:
+            field_data = self.OPU_OverHead_Field_Finder(i)
+            print(f"{i} field : \'{field_data}\' \n ")

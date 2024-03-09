@@ -19,10 +19,8 @@ file_path = "A:/Ahmed_SH/Siemens Projects/otnanalyzer/InputTests/input.txt"
 
 test = InputProcessor(file_path , "OTN").get_File_in_STND_Format()
 
-# for i in test:
-#     print(i)
-
-odu = ODU_Frame(test)
+odu = OTU_Frame(test)
 
 
-print(odu.ODU_OverHead_Field_Finder(OTN_OH.ODU_PM_STAT))
+
+odu.Visualize_OTU()
