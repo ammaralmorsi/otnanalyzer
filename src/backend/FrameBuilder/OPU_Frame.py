@@ -32,30 +32,22 @@ class OPU_Frame:
 
         self.OPU_Overhead_Columns = [row[14:16] for row in self.Frame]
         self.OPU_Overhead_Columns[3].append(self.Frame[3][16])
-        #self.OPU_total = sum(int(hex_num, 16) for hex_num in self.OPU_Overhead_Columns[3])
-
         return self.OPU_Overhead_Columns
 
-        # total = hex(sum(int(hex_num, 16) for hex_num in self.OPU_Overhead_Columns[3]))
-        #
-        # # If the total is a negative number, remove the minus sign from the hexadecimal representation
-        # if total.startswith('-'):
-        #     total = '-' + total[3:]
 
 class OPU_Overhead:
 
     def __init__(self , Frame):
         self.Frame = Frame
         self.OPU_Overhead_data_mapper = {}
+        self.OPU_OH = [
+            OTN_OH.OPU_JC1, OTN_OH.OPU_JC2, OTN_OH.OPU_JC3, OTN_OH.OPU_JC4,
+            OTN_OH.OPU_JC5, OTN_OH.OPU_JC6, OTN_OH.OPU_PSI, OTN_OH.OPU_NJO_OMFI,
+            OTN_OH.OPU_PJO
+        ]
         self.OPU_OverHead_Fields_Constrcutor()
 
     def OPU_OverHead_Fields_Constrcutor(self):
-
-        self.OPU_OH = [
-            OTN_OH.OPU_JC1 , OTN_OH.OPU_JC2 , OTN_OH.OPU_JC3 , OTN_OH.OPU_JC4 ,
-            OTN_OH.OPU_JC5 , OTN_OH.OPU_JC6 , OTN_OH.OPU_PSI , OTN_OH.OPU_NJO_OMFI,
-            OTN_OH.OPU_PJO
-        ]
 
         for i in self.OPU_OH:
 

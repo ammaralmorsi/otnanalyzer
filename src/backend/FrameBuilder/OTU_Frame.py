@@ -1,6 +1,7 @@
 from Configuration.OTN_Fields_Config import OTN_OH
 from Exceptions.Custom_Exception import CustomException
 import logging
+from tabulate import tabulate
 
 class OTU_Frame:
 
@@ -14,7 +15,7 @@ class OTU_Frame:
     def OTU_OverHead_Column_Data(self):
 
         try:
-            self.OTU_Columns = [row[7:14] for row in self.Frame]
+            self.OTU_Columns = self.Frame[0][7:15]
             return self.OTU_Columns
 
         except CustomException as e:
@@ -66,3 +67,21 @@ class OTU_Frame:
                 print(f"SM_TTI is {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_TTI]}")
                 print(f"SM_BIP_8 is {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BIP_8]}")
                 print("###########################################")
+
+    def OTU_Table_Frame(self):
+        self.OTU_headers = [ "OTU_SM","OTU_GCC0" ,"OTN_OSMC" , "OTU_RES"]
+
+        self.OTU_Frame = [
+            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BEI_BIAE] ,
+            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BDI],
+            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_IAE],
+            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_STAT],
+            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_TTI],
+            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BIP_8],
+            self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM],
+            self.OTU_Overhead_data_mapper[OTN_OH.OTU_GCC0],
+            self.OTU_Overhead_data_mapper[OTN_OH.OTU_OSMC],
+            #self.OTU_Overhead_data_mapper[OTN_OH.OTU_RES],
+        ]
+        table = tabulate([self.OTU_Frame] , headers= self.OTU_headers , tablefmt="grid" , colalign=("center",))
+        print(table)
