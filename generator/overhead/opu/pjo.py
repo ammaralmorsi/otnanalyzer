@@ -1,6 +1,6 @@
 from generator.utils import OverheadValue
 
 
-class APS_PCCOverheadGenerator:
+class PJOOverheadGenerator:
     def get_next_value(self) -> OverheadValue:
-        return OverheadValue(binary_string=''.zfill(4*8))
+        return OverheadValue(binary_string=''.zfill(8))

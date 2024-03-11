@@ -2,5 +2,5 @@ from generator.utils import OverheadValue
 
 
 class PM_TTIOverheadGenerator:
-    def get_next_value(self):
+    def get_next_value(self) -> OverheadValue:
         return OverheadValue(binary_string=''.zfill(8))
