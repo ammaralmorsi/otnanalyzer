@@ -1,5 +1,5 @@
 
-from Configuration.OTN_Fields_Config import OTN_OH
+from utils.OTN_Fields_Config import OTN_OH
 from Exceptions.Custom_Exception import CustomException
 import logging
 
@@ -14,8 +14,13 @@ class OPU_Frame:
         self.OPU_Overhead_Columns = None
 
         self.OPU_Payload = self.OPU_Payload_Constructor()
-        self.OPU_Overhead = OPU_Overhead(self.Frame)
-
+        self.OPU_Overhead_data_mapper = {}
+        self.OPU_OH = [
+            OTN_OH.OPU_JC1, OTN_OH.OPU_JC2, OTN_OH.OPU_JC3, OTN_OH.OPU_JC4,
+            OTN_OH.OPU_JC5, OTN_OH.OPU_JC6, OTN_OH.OPU_PSI, OTN_OH.OPU_NJO_OMFI,
+            OTN_OH.OPU_PJO
+        ]
+        self.OPU_OverHead_Fields_Constrcutor()
 
     def OPU_All_Frame_Constructror(self):
 
@@ -35,18 +40,6 @@ class OPU_Frame:
         return self.OPU_Overhead_Columns
 
 
-class OPU_Overhead:
-
-    def __init__(self , Frame):
-        self.Frame = Frame
-        self.OPU_Overhead_data_mapper = {}
-        self.OPU_OH = [
-            OTN_OH.OPU_JC1, OTN_OH.OPU_JC2, OTN_OH.OPU_JC3, OTN_OH.OPU_JC4,
-            OTN_OH.OPU_JC5, OTN_OH.OPU_JC6, OTN_OH.OPU_PSI, OTN_OH.OPU_NJO_OMFI,
-            OTN_OH.OPU_PJO
-        ]
-        self.OPU_OverHead_Fields_Constrcutor()
-
     def OPU_OverHead_Fields_Constrcutor(self):
 
         for i in self.OPU_OH:
@@ -65,7 +58,7 @@ class OPU_Overhead:
             logging.error("OPU Field key not found")
 
 
-    def Visualize_OPU(self):
+    def visualize_OPU(self):
         for i in self.OPU_OH:
             field_data = self.OPU_OverHead_Field_Finder(i)
             print(f"{i} field : \'{field_data}\' \n ")

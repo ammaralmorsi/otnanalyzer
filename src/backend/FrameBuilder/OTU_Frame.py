@@ -1,4 +1,4 @@
-from Configuration.OTN_Fields_Config import OTN_OH
+from utils.OTN_Fields_Config import OTN_OH
 from Exceptions.Custom_Exception import CustomException
 import logging
 from tabulate import tabulate
@@ -33,21 +33,17 @@ class OTU_Frame:
 
     def OTU_SM_Overhead_Constructor(self):
 
-# error hereeeeee
 
-        self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BIP_8] = self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM][0]
-        self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_TTI] = self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM]
+        self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_TTI] = self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM][0]
+        self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BIP_8] = self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM][1]
 
         OTU_SM_Data = self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM][2]
         binary_data = bin(int(OTU_SM_Data, 16))[2:].zfill(8)
 
-        # format(int(binary_data[5:8], 2), 'x')
         self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BEI_BIAE] = int(binary_data[0:4], 2) % 10
         self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BDI] = int(binary_data[4]) % 10
         self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_IAE] = int(binary_data[5], 2) % 10
         self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_STAT] = int(binary_data[6:8], 2) % 10
-
-
 
 
     def OTU_OverHead_Field_Finder(self , OTU_Field):
@@ -72,16 +68,9 @@ class OTU_Frame:
         self.OTU_headers = [ "OTU_SM","OTU_GCC0" ,"OTN_OSMC" , "OTU_RES"]
 
         self.OTU_Frame = [
-            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BEI_BIAE] ,
-            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BDI],
-            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_IAE],
-            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_STAT],
-            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_TTI],
-            # self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BIP_8],
             self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM],
             self.OTU_Overhead_data_mapper[OTN_OH.OTU_GCC0],
             self.OTU_Overhead_data_mapper[OTN_OH.OTU_OSMC],
-            #self.OTU_Overhead_data_mapper[OTN_OH.OTU_RES],
         ]
         table = tabulate([self.OTU_Frame] , headers= self.OTU_headers , tablefmt="grid" , colalign=("center",))
         print(table)
