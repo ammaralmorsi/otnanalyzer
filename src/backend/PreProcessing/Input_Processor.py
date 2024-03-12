@@ -43,7 +43,6 @@ class InputProcessor:
 
     def Convert_To_OTN_Frame_Format(self , HEX_OTN_Frame , FrameType):
 
-
         frame_size = OTN_Frames.FRAME_SIZES.get(FrameType)
 
         if frame_size is not None:
@@ -52,7 +51,8 @@ class InputProcessor:
             return rows
 
         else:
-            logging.error("FrameType key not found")
+            logging.error("no frame type like that")
+            print("# Wrong frametype , no type like this available")
 
 
 
