@@ -1,6 +1,7 @@
+from generator.utils import PayloadValue, FieldGenerator
 
 
-class PRBSPayloadGenerator:
+class PRBSPayloadGenerator(FieldGenerator):
     def __init__(self, seed:int):
         self.poly:list[int] = [int(i) for i in f'{seed & 0x7FFFFFFF:0>31b}']
 
@@ -14,3 +15,6 @@ class PRBSPayloadGenerator:
             self.poly.insert(0, feedback)
             byte.append(str(1 - self.poly.pop(-1)))
         return int(''.join(byte), 2)
+
+    def get_next_value(self) -> PayloadValue:
+        return PayloadValue(data=self.get_next_payload())
