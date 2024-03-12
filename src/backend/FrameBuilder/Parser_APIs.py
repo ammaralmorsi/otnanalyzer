@@ -2,11 +2,21 @@ from src.backend.FrameBuilder.ODU_Frame import ODU_Frame
 from src.backend.FrameBuilder.OPU_Frame import OPU_Frame
 from src.backend.FrameBuilder.OTU_Frame import OTU_Frame
 from src.backend.PreProcessing.Input_Processor import InputProcessor
-from utils.OTN_Fields_Config import OTN_OH
-from utils.OTN_Field_Data import OTN_Field_Data
-
-from utils.log_config import Logger
+from Configuration.OTN_Fields_Config import OTN_OH
+from Configuration.OTN_Field_Data import OTN_Field_Data
+from Configuration.Log_Config import Logger
 import os , logging
+
+
+"""
+
+# The frametype arg in the init parser_API , is either "OTN" , "OPU" , "ODU" , "OTU" , look in Configuration/OTN_Frams_Column_Ranges.py
+
+# If a field is needed as argument it should be like this OTN_OH.field 
+
+# In get_tcm_inner_field() , tcm_num is like OTN_OH.TCM1 , and field is either 'TTI' , 'BIP_8' , 'BEI_BIAE' , 'BDI' , 'STAT'
+
+"""
 
 class parser_API:
 
