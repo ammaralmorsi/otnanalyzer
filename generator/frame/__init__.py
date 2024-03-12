@@ -1,2 +1,2 @@
-from .opu import NullOpuFrameGenerator
-from .opu import PRBSOpuFrameGenerator
+from .opu import OpuFrameGenerator
+from .odu import OduFrameGenerator
