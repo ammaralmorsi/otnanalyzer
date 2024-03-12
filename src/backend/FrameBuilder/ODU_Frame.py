@@ -19,14 +19,12 @@ class ODU_Frame:
             OTN_OH.ODU_TCM4, OTN_OH.ODU_TCM5, OTN_OH.ODU_TCM6
         ]
 
-        try:
-            self.ODU_OverHead_Field_Constructor()
-            self.ODU_PM_inner_Overhead_Constrcutor()
-            self.ODU_PM_TCM_DMti_inner_Overhead_Constructor()
-            self.ODU_TCMi_inner_Overhead_Constructor()
-        except (KeyError , TypeError) as e:
-            print(f"# Error in odu : {e}")
-            logging.error(e)
+
+        self.ODU_OverHead_Field_Constructor()
+        self.ODU_PM_inner_Overhead_Constrcutor()
+        self.ODU_PM_TCM_DMti_inner_Overhead_Constructor()
+        self.ODU_TCMi_inner_Overhead_Constructor()
+
     def ODU_OverHead_Column_Data(self):
 
         try:
@@ -49,7 +47,7 @@ class ODU_Frame:
         binary_data = bin(int(PM_Data, 16))[2:].zfill(8)
 
         # format(int(binary_data[5:8], 2), 'x')
-        self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_BEI_BIAE] = int(binary_data[0:4], 2) % 10
+        self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_BEI_BIAE] = hex(int(binary_data[0:4], 2))[2:]
         self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_BDI]  = int(binary_data[4]) % 10
         self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_STAT] = int(binary_data[5:8], 2) % 10
 
@@ -61,10 +59,9 @@ class ODU_Frame:
 
         PM_TCM_Data = self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM][0]
         binary_data = bin(int(PM_TCM_Data, 16))[2:].zfill(8)
-        self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM_DMt1] = int(binary_data[0]) % 10
-        self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM_DMt2] = int(binary_data[1]) % 10
+        self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM_DMt1] = int(binary_data[0])
+        self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM_DMt2] = int(binary_data[1])
         self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM_DMt3] = binary_data[2]
-
         self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM_DMt4] = binary_data[3]
         self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM_DMt5] = binary_data[4]
         self.ODU_Overhead_data_mapper[OTN_OH.ODU_PM_TCM_DMt6] = binary_data[5]

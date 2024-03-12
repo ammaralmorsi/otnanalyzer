@@ -22,7 +22,7 @@ class OTU_Frame:
             self.OTU_OverHead_Field_Constructor()
             self.OTU_SM_Overhead_Constructor()
             self.Frame_Alignment_overheads_Constructor()
-        except (KeyError,TypeError) as e:
+        except (KeyError,TypeError , IndexError) as e:
             print(f"# Error in otu : {e}")
             logging.error(e)
 
@@ -56,7 +56,7 @@ class OTU_Frame:
         OTU_SM_Data = self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM][2]
         binary_data = bin(int(OTU_SM_Data, 16))[2:].zfill(8)
 
-        self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BEI_BIAE] = int(binary_data[0:4], 2) % 10
+        self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BEI_BIAE] = hex(int(binary_data[0:4], 2))[2:]
         self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BDI] = int(binary_data[4]) % 10
         self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_IAE] = int(binary_data[5], 2) % 10
         self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_STAT] = int(binary_data[6:8], 2) % 10
@@ -85,12 +85,13 @@ class OTU_Frame:
             print(f"{i} field : {field_data} \n ")
             if i is OTN_OH.OTU_SM:
                 print("OTU_SM details : \n ")
+                print(f"\tSM_TTI is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_TTI]}")
+                print(f"\tSM_BIP_8 is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BIP_8]}")
                 print(f"\tSM_BEI_BIAE is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BEI_BIAE]}")
                 print(f"\tSM_BDI is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BDI]}")
                 print(f"\tSM_IAE is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_IAE]}")
-                print(f"\tSM_STAT is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_STAT]}")
-                print(f"\tSM_TTI is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_TTI]}")
-                print(f"\tSM_BIP_8 is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_BIP_8]} \n")
+                print(f"\tSM_STAT is : {self.OTU_Overhead_data_mapper[OTN_OH.OTU_SM_STAT]} \n ")
+
 
         print("-----------------------------------")
         return ""

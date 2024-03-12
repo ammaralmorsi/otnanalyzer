@@ -50,9 +50,7 @@ class InputProcessor:
             rows = [values[i:i + frame_size] for i in range(0, len(values), frame_size)]
             return rows
 
-        else:
-            logging.error("no frame type like that")
-            print("# Wrong frametype , no type like this available")
+
 
 
 

@@ -26,9 +26,10 @@ class parser_API:
 
         if frametype == 'OTN' or frametype == 'OPU':
             self.opu = OPU_Frame(self.preprocessed_file)
-
-        self.odu = ODU_Frame(self.preprocessed_file)
-        self.otu = OTU_Frame(self.preprocessed_file)
+        if(frametype == 'OTN' or frametype == 'ODU'):
+            self.odu = ODU_Frame(self.preprocessed_file)
+        if(frametype == 'OTN' or frametype == 'OPU'):
+            self.otu = OTU_Frame(self.preprocessed_file)
 
     def get_otn_data_visualization(self):
         try:

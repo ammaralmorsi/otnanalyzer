@@ -23,7 +23,7 @@ class OPU_Frame:
 
         try:
             self.OPU_OverHead_Fields_Constrcutor()
-        except (TypeError , KeyError) as e:
+        except (TypeError , KeyError , IndexError) as e:
             print(f"# Error in opu : {e}")
             logging.error(e)
 
@@ -37,9 +37,9 @@ class OPU_Frame:
         try:
             self.OPU_Payload_Columns = [row[16:3824] for row in self.Frame]
             return self.OPU_Payload_Columns
-        except IndexError as e:
-            logging.error(f"The frame isnot OPU , {e}")
-            print("The frame isnot opu, so this API not available")
+        except (IndexError , TypeError) as e:
+            logging.error(f"Error: , {e}")
+            print(f"Error: , {e}")
 
 
     def OPU_OverHead_Columns_Data(self):
@@ -48,9 +48,9 @@ class OPU_Frame:
             self.OPU_Overhead_Columns = [row[14:16] for row in self.Frame]
             self.OPU_Overhead_Columns[3].append(self.Frame[3][16])
             return self.OPU_Overhead_Columns
-        except IndexError as e:
-            logging.error(f"The frame isnot OPU , {e}")
-            print("The frame isnot opu, so this API not available")
+        except (IndexError, TypeError) as e:
+            logging.error(f"Error: , {e}")
+            print(f"Error: , {e}")
 
 
 
@@ -82,6 +82,6 @@ class OPU_Frame:
                 print(f"{i} field : {field_data} \n ")
             print("-----------------------------------")
             return ""
-        except IndexError as e:
-            logging.error(f"The frame isnot OPU , {e}")
-            print("The frame isnot opu, so this API not available")
+        except (IndexError, TypeError) as e:
+            logging.error(f"Error: , {e}")
+            print(f"Error: , {e}")
