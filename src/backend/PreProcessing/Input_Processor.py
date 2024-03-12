@@ -1,6 +1,6 @@
 import logging
 
-from utils.OTN_Frames_Column_Ranges import OTN_Frames
+from Configuration.OTN_Frames_Column_Ranges import OTN_Frames
 from Exceptions.Custom_Exception import CustomException
 
 class InputProcessor:

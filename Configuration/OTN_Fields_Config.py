@@ -1,5 +1,5 @@
 from enum import Enum
-from utils.OTN_Field_Data import OTN_Field_Data
+from Configuration.OTN_Field_Data import OTN_Field_Data
 
 class OTN_OH(Enum):
 

@@ -1,6 +1,6 @@
 
 from src.backend.FrameBuilder.Parser_APIs import parser_API
-from utils.OTN_Fields_Config import OTN_OH
+from Configuration.OTN_Fields_Config import OTN_OH
 
 
 filepath = "A:/Ahmed_SH/Siemens Projects/otnanalyzer/InputTests/input.txt"

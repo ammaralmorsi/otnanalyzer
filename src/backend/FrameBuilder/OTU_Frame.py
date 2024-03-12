@@ -1,4 +1,4 @@
-from utils.OTN_Fields_Config import OTN_OH
+from Configuration.OTN_Fields_Config import OTN_OH
 from Exceptions.Custom_Exception import CustomException
 import logging
 from tabulate import tabulate
