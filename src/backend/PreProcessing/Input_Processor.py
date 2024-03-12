@@ -21,6 +21,7 @@ class InputProcessor:
             try:
                 with open(file_path, 'r') as file:
                     OTN_Frames = file.read()
+                    print(OTN_Frames)
                     print("File read successfully")
                     return OTN_Frames
             except FileNotFoundError:

@@ -29,7 +29,7 @@ class OTU_Frame:
     def OTU_OverHead_Column_Data(self):
 
         try:
-            self.OTU_Columns = self.Frame[0][7:15]
+            self.OTU_Columns = self.Frame[0][7:14]
             return self.OTU_Columns
 
         except CustomException as e:

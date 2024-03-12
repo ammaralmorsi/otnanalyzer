@@ -23,13 +23,16 @@ class parser_API:
     def __init__(self, filepath, frametype):
         Logger.log_init()
         self.preprocessed_file = InputProcessor(filepath, frametype).get_File_in_STND_Format()
-
         if frametype == 'OTN' or frametype == 'OPU':
             self.opu = OPU_Frame(self.preprocessed_file)
         if(frametype == 'OTN' or frametype == 'ODU'):
             self.odu = ODU_Frame(self.preprocessed_file)
         if(frametype == 'OTN' or frametype == 'OTU'):
             self.otu = OTU_Frame(self.preprocessed_file)
+
+
+    def get_otn_frame(self):
+        return self.preprocessed_file
 
     def get_otn_data_visualization(self):
         try:
@@ -43,6 +46,12 @@ class parser_API:
     """
         Below are the APIs for the opu frame part
     """
+
+    def get_opu_frame(self):
+        try:
+            return self.opu.OPU_All_Frame_Constructror()
+        except (AttributeError , KeyError, TypeError) as e:
+            print(f"Error : e")
 
     def get_opu_payload(self):
         try:

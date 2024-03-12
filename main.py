@@ -6,10 +6,12 @@ from Configuration.OTN_Fields_Config import OTN_OH
 filepath = "A:/Ahmed_SH/Siemens Projects/otnanalyzer/InputTests/input.txt"
 test = parser_API(filepath , "OTN")
 
-test.get_otn_data_visualization()
-test.get_opu_data_visualization()
-test.get_odu_data_visualization()
-test.get_otu_data_visualization()
-test.get_fa_data_visualization()
+otn = test.get_otn_frame()
+odu = test.get_odu_overhead()
+otu = test.get_otu_overhead()
+opu = test.get_opu_frame()
+fa = test.get_fa_overhead()
+
+
 
 

@@ -28,7 +28,7 @@ class ODU_Frame:
     def ODU_OverHead_Column_Data(self):
 
         try:
-            self.ODU_Columns = [row[0:15] for row in self.Frame]
+            self.ODU_Columns = [row[0:14] for row in self.Frame[1:]]
             return self.ODU_Columns
 
         except CustomException as e:
