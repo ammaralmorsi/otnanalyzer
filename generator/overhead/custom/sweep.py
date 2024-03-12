@@ -1,7 +1,7 @@
-from generator.utils import OverheadValue
+from generator.utils import OverheadValue, FieldGenerator
 
 
-class SweepOverheadGenerator:
+class SweepOverheadGenerator(FieldGenerator):
     def __init__(self, start:int, end:int):
         if start > end:
             raise ValueError(f"start should be less than or equal to end")

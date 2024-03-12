@@ -1,7 +1,7 @@
-from generator.utils import OverheadValue
+from generator.utils import OverheadValue, FieldGenerator
 
 
-class FixedValueOverheadGenerator:
+class FixedValueOverheadGenerator(FieldGenerator):
     def __init__(self, fixed_value:int):
         self.fixed_value:int = fixed_value
 

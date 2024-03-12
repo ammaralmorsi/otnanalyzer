@@ -1,7 +1,7 @@
-from generator.utils import OverheadValue
+from generator.utils import OverheadValue, FieldGenerator
 
 
-class MFASOverheadGenerator:
+class MFASOverheadGenerator(FieldGenerator):
     def __init__(self):
         self.current_frame_number = 0
 

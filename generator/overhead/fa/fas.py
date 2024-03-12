@@ -1,7 +1,7 @@
-from generator.utils import OverheadValue
+from generator.utils import OverheadValue, FieldGenerator
 
 
-class FASOverheadGenerator:
+class FASOverheadGenerator(FieldGenerator):
     def get_next_value(self) -> OverheadValue:
         oa1:str = "11110110"
         oa2:str = "00101000"
