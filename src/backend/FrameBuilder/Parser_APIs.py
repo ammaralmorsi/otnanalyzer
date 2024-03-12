@@ -93,12 +93,12 @@ class parser_API:
 
     def get_tcm_details(self , tcm_num):
         try:
-            print(f"{tcm_num} details are : \n")
+            # print(f"{tcm_num} details are : \n")
             for i in tcm_num.value.inner_levels:
-                print(f"{i} & {tcm_num}")
                 print(f"\t{i} field data is : {tcm_num.value.inner_levels[i]}")
         except (AttributeError,KeyError) as e:
             print(f"{e}")
+        return ""
 
     def get_odu_data_visualization(self):
         self.odu.visualize_odu()
