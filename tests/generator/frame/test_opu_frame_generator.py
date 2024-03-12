@@ -4,8 +4,10 @@ import unittest
 class TestOpuFrameGenerator(unittest.TestCase):
     def test_null(self):
         from generator.frame.opu import NullOpuFrameGenerator
-        NullOpuFrameGenerator()
+        from generator.frame.odu import OduFrameGenerator
+        OduFrameGenerator(NullOpuFrameGenerator())
 
     def test_prbs(self):
         from generator.frame.opu import PRBSOpuFrameGenerator
-        PRBSOpuFrameGenerator(seed=2)
+        from generator.frame.odu import OduFrameGenerator
+        OduFrameGenerator(PRBSOpuFrameGenerator(seed=2))
