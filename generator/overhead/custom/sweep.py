@@ -2,16 +2,17 @@ from generator.utils import OverheadValue, FieldGenerator
 
 
 class SweepOverheadGenerator(FieldGenerator):
-    def __init__(self, start:int, end:int):
+    def __init__(self, start: int, end: int, size=1):
         if start > end:
             raise ValueError(f"start should be less than or equal to end")
-        self.start:int = start
-        self.end:int = end
-        self.current:int = self.start
+        self.start: int = start
+        self.end: int = end
+        self.current: int = self.start
+        self.size: int = size
 
     def get_next_value(self) -> OverheadValue:
         if self.current > self.end:
             self.current = self.start
-        next_value:int = self.current
+        next_value: int = self.current
         self.current += 1
-        return OverheadValue(binary_string=f"{next_value:08b}")
+        return OverheadValue(binary_string=f"{next_value:08b}" * self.size)
