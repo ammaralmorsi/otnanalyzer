@@ -3,14 +3,13 @@ from src.backend.FrameBuilder.Parser_APIs import parser_API
 from Configuration.OTN_Fields_Config import OTN_OH
 
 
-filepath = "A:/Ahmed_SH/Siemens Projects/otnanalyzer/InputTests/input.txt"
-test = parser_API(filepath , "OTN")
+filepath = "C:/Users/ashar/OneDrive/Desktop/testinggg/otnanalyzer/InputTests/input.txt"
 
-otn = test.get_otn_frame()
-odu = test.get_odu_overhead()
-otu = test.get_otu_overhead()
-opu = test.get_opu_frame()
-fa = test.get_fa_overhead()
+test = parser_API(filepath, "OTN")
+
+print(test.get_odu_overhead())
+
+
 
 
 

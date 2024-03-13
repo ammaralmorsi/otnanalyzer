@@ -1,5 +1,4 @@
 from Configuration.OTN_Fields_Config import OTN_OH
-from Exceptions.Custom_Exception import CustomException
 import logging
 from tabulate import tabulate
 
@@ -32,7 +31,7 @@ class OTU_Frame:
             self.OTU_Columns = self.Frame[0][7:14]
             return self.OTU_Columns
 
-        except CustomException as e:
+        except AttributeError as e:
             logging.error(f"An unexpected error occurred: {e}")
             return None
 
@@ -73,12 +72,16 @@ class OTU_Frame:
         try:
             return self.OTU_Overhead_data_mapper[OTU_Field]
         except (AttributeError, KeyError) as e:
-            print(f"Error : {e}")
+            print(f"No otu field key like that , Error msg : {e}")
+            return ""
     def FA_OverHead_Field_Finder(self , FA_Field):
+        try:
             return self.FA_Overhead_data_mapper[FA_Field]
-
+        except KeyError as e:
+            print(f"No field key like that in FA overheads , Error msg : {e}")
+            return ""
     def Visualize_OTU(self):
-        print("\nThe otu overheads are :  ")
+        print("\nThe OTU overheads are :  ")
         print("-----------------------------------")
         for i in self.OTU_OH:
             field_data = self.OTU_OverHead_Field_Finder(i)
@@ -108,7 +111,7 @@ class OTU_Frame:
 
     def visualize_fa(self):
 
-        print("\nThe fa overheads are :  ")
+        print("\nThe FA overheads are :  ")
         print("-----------------------------------")
         for i in self.FA_OH:
             print(f"{i} field is : {self.FA_Overhead_data_mapper[i]}")

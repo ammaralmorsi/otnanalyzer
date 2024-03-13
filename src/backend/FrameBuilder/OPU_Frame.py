@@ -1,6 +1,5 @@
 
 from Configuration.OTN_Fields_Config import OTN_OH
-from Exceptions.Custom_Exception import CustomException
 import logging
 
 class OPU_Frame:
@@ -28,16 +27,19 @@ class OPU_Frame:
             logging.error(e)
 
     def OPU_All_Frame_Constructror(self):
-
-        self.OPU_Columns = [row[14:3824] for row in self.Frame]
-        return self.OPU_Columns
+        try:
+            self.OPU_Columns = [row[14:3824] for row in self.Frame]
+            return self.OPU_Columns
+        except (AttributeError , KeyError, TypeError) as e:
+            print(f"Error : {e}")
+            return ""
 
 
     def OPU_Payload_Constructor(self):
         try:
             self.OPU_Payload_Columns = [row[16:3824] for row in self.Frame]
             return self.OPU_Payload_Columns
-        except (IndexError , TypeError) as e:
+        except (IndexError , TypeError , AttributeError) as e:
             logging.error(f"Error: , {e}")
             print(f"Error: , {e}")
 

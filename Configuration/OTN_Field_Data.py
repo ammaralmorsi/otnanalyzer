@@ -2,12 +2,12 @@ from typing import Tuple, Optional, Dict
 from dataclasses import dataclass
 
 @dataclass
-class OTN_Field_Data:
+class otn_field_data:
 
 
     name : str
     parent_type: str     # otn opu odu
-    inner_levels: Dict[str, 'OTN_Field_Data']
+    inner_levels: Dict[str, 'otn_field_data']
     row_num: int
     column_start : int
     column_end : int

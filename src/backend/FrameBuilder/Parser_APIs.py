@@ -3,7 +3,7 @@ from src.backend.FrameBuilder.OPU_Frame import OPU_Frame
 from src.backend.FrameBuilder.OTU_Frame import OTU_Frame
 from src.backend.PreProcessing.Input_Processor import InputProcessor
 from Configuration.OTN_Fields_Config import OTN_OH
-from Configuration.OTN_Field_Data import OTN_Field_Data
+from Configuration.OTN_Field_Data import otn_field_data
 from Configuration.Log_Config import Logger
 import os , logging
 
@@ -23,19 +23,18 @@ class parser_API:
     def __init__(self, filepath, frametype):
         Logger.log_init()
         self.preprocessed_file = InputProcessor(filepath, frametype).get_File_in_STND_Format()
-        if frametype == 'OTN' or frametype == 'OPU':
-            self.opu = OPU_Frame(self.preprocessed_file)
-        if(frametype == 'OTN' or frametype == 'ODU'):
-            self.odu = ODU_Frame(self.preprocessed_file)
-        if(frametype == 'OTN' or frametype == 'OTU'):
-            self.otu = OTU_Frame(self.preprocessed_file)
+        self.opu = OPU_Frame(self.preprocessed_file)
+        self.odu = ODU_Frame(self.preprocessed_file)
+        self.otu = OTU_Frame(self.preprocessed_file)
 
 
     def get_otn_frame(self):
         return self.preprocessed_file
 
     def get_otn_data_visualization(self):
+
         try:
+            print("OTN overheads : ")
             self.get_opu_data_visualization()
             self.get_odu_data_visualization()
             self.get_otu_data_visualization()
@@ -48,17 +47,13 @@ class parser_API:
     """
 
     def get_opu_frame(self):
-        try:
-            return self.opu.OPU_All_Frame_Constructror()
-        except (AttributeError , KeyError, TypeError) as e:
-            print(f"Error : e")
+
+        return self.opu.OPU_All_Frame_Constructror()
 
     def get_opu_payload(self):
-        try:
-            return self.opu.OPU_Payload_Constructor()
-        except (AttributeError, KeyError) as e:
-            print(f"Error : {e}")
-        return ""
+
+        return self.opu.OPU_Payload_Constructor()
+
     def get_opu_overhead(self):
         try:
             return self.opu.OPU_OverHead_Columns_Data()
@@ -87,11 +82,10 @@ class parser_API:
 
     def get_odu_overhead(self):
         return self.odu.ODU_OverHead_Column_Data()
+
     def get_odu_field(self, odu_field):
-        try:
-            return self.odu.ODU_OverHead_Field_Finder(odu_field)
-        except (AttributeError, KeyError) as e:
-            print(f"Error : {e}")
+        return self.odu.ODU_OverHead_Field_Finder(odu_field)
+
     def get_tcm_inner_field(self, tcm_num, field):
         try:
             return tcm_num.value.inner_levels[field]
@@ -121,11 +115,10 @@ class parser_API:
 
     def get_otu_overhead(self):
         return self.otu.OTU_OverHead_Column_Data()
+
     def get_otu_field(self , otu_field):
-        try:
-            return self.otu.OTU_OverHead_Field_Finder(otu_field)
-        except (AttributeError,KeyError) as e:
-            print(f"Error : {e}")
+        return self.otu.OTU_OverHead_Field_Finder(otu_field)
+
     def get_otu_data_visualization(self):
         return self.otu.Visualize_OTU()
         return ""

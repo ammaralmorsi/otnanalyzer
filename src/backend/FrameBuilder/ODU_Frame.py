@@ -1,5 +1,4 @@
 from Configuration.OTN_Fields_Config import OTN_OH
-from Exceptions.Custom_Exception import CustomException
 import logging
 
 class ODU_Frame:
@@ -11,8 +10,8 @@ class ODU_Frame:
         self.ODU_Overhead_data_mapper = {}
         self.ODU_OH = [
             OTN_OH.ODU_RES1, OTN_OH.ODU_PM_TCM, OTN_OH.ODU_EXP1, OTN_OH.ODU_TCM6, OTN_OH.ODU_TCM5,
-            OTN_OH.ODU_TCM4, OTN_OH.ODU_TCM3, OTN_OH.ODU_TCM2, OTN_OH.ODU_TCM1, OTN_OH.ODU_PM,
-            OTN_OH.ODU_EXP2, OTN_OH.ODU_GCC1, OTN_OH.ODU_GCC2, OTN_OH.ODU_APS_PCC, OTN_OH.ODU_RES2
+            OTN_OH.ODU_TCM4, OTN_OH.ODU_EXP2, OTN_OH.ODU_TCM3, OTN_OH.ODU_TCM2, OTN_OH.ODU_TCM1,
+            OTN_OH.ODU_PM, OTN_OH.ODU_EXP3, OTN_OH.ODU_GCC1, OTN_OH.ODU_GCC2, OTN_OH.ODU_APS_PCC, OTN_OH.ODU_RES2
         ]
         self.TCMi_keys = [
             OTN_OH.ODU_TCM1, OTN_OH.ODU_TCM2, OTN_OH.ODU_TCM3,
@@ -31,7 +30,7 @@ class ODU_Frame:
             self.ODU_Columns = [row[0:14] for row in self.Frame[1:]]
             return self.ODU_Columns
 
-        except CustomException as e:
+        except AttributeError as e:
             logging.error(f"# An unexpected error occurred: {e}")
             return None
 
@@ -81,11 +80,14 @@ class ODU_Frame:
 
 
     def ODU_OverHead_Field_Finder(self, ODU_Field):
-        return self.ODU_Overhead_data_mapper[ODU_Field]
-
+        try:
+            return self.ODU_Overhead_data_mapper[ODU_Field]
+        except (AttributeError, KeyError) as e:
+            print(f"No odu field key like that , Error msg : {e}")
+            return ""
 
     def visualize_odu(self):
-        print("\nThe odu overheads are :  ")
+        print("\nThe ODU overheads are :  ")
         print("-----------------------------------")
         for i in self.ODU_OH:
             data = self.ODU_OverHead_Field_Finder(i)
