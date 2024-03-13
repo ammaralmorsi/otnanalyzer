@@ -5,6 +5,8 @@ from generator.overhead.opu import (JCOverheadGenerator, NJOOverheadGenerator,
     PJOOverheadGenerator, PRBSPSIOverheadGenerator)
 from generator.overhead.odu import (ResOverheadGenerator, PM_TCMOvherheadGenerator, ExpOverheadGenerator,
     TCMOverheadGenerator, PMOverheadGenerator, GCC1OverheadGenerator, GCC2OverheadGenerator, APS_PCCOverheadGenerator)
+from generator.overhead.otu import GCC0OverheadGenerator, OSMCOverheadGenerator, SMOverheadGenerator
+from generator.overhead.fa import FASOverheadGenerator, MFASOverheadGenerator
 
 
 @dataclass
@@ -44,6 +46,21 @@ class OduOverheads:
         self.gcc2:OtnField = OtnField(name="gcc2", position=Position(col=2, row=3), dimension=Dimension(nrows=1, ncols=2), generator=GCC2OverheadGenerator())
         self.aps_pcc:OtnField = OtnField(name="aps_pcc", position=Position(col=4, row=3), dimension=Dimension(nrows=1, ncols=4), generator=APS_PCCOverheadGenerator())
         self.res2:OtnField = OtnField(name="res2", position=Position(col=8, row=3), dimension=Dimension(nrows=1, ncols=6), generator=ResOverheadGenerator(size=6))
+
+    def __iter__(self):
+        for field in self.__dict__.values():
+            yield field
+
+
+@dataclass
+class OtuOverheads:
+    def __init__(self):
+        self.fas:OtnField = OtnField(name="fas", position=Position(col=0, row=0), dimension=Dimension(nrows=1, ncols=6), generator=FASOverheadGenerator())
+        self.mfas:OtnField = OtnField(name="mfas", position=Position(col=6, row=0), dimension=Dimension(nrows=1, ncols=1), generator=MFASOverheadGenerator())
+        self.sm:OtnField = OtnField(name="sm", position=Position(col=7, row=0), dimension=Dimension(nrows=1, ncols=3), generator=SMOverheadGenerator())
+        self.gcc0:OtnField = OtnField(name="gcc0", position=Position(col=10, row=0), dimension=Dimension(nrows=1, ncols=2), generator=GCC0OverheadGenerator())
+        self.osmc:OtnField = OtnField(name="osmc", position=Position(col=12, row=0), dimension=Dimension(nrows=1, ncols=1), generator=OSMCOverheadGenerator())
+        self.res:OtnField = OtnField(name="res", position=Position(col=13, row=0), dimension=Dimension(nrows=1, ncols=1), generator=ResOverheadGenerator(size=1))
 
     def __iter__(self):
         for field in self.__dict__.values():

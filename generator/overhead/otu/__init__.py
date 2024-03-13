@@ -5,3 +5,4 @@ from .sm import SM_BIP8OverheadGenerator
 from .sm import SM_TTIOverheadGenerator
 from .sm import SM_IAEOverheadGenerator
 from .sm import SM_BDIOverheadGenerator
+from .sm import SMOverheadGenerator
