@@ -1,9 +1,9 @@
-from enum import Enum
-
 from utils import OtnField, OtnFieldTypes, Position, Dimension
 
+from .base import OtnOverheads
 
-class OpuOverheads(Enum):
+
+class OpuOverheads(OtnOverheads):
     jc1: OtnField = OtnField(name="jc1", field_type=OtnFieldTypes.JC,
         position=Position(col=1, row=0), dimension=Dimension(nrows=1, ncols=1))
     jc2: OtnField = OtnField(name="jc2", field_type=OtnFieldTypes.JC,

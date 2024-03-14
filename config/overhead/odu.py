@@ -1,12 +1,10 @@
-import copy
-from enum import Enum
+from utils import OtnField, OtnFieldTypes, Position, Dimension
 
-from utils import OtnField, Position, Dimension
-from utils import OtnFieldTypes
+from .base import OtnOverheads
 from .inner import TcmInnerFields, PmInnerFields
 
 
-class OduOverheads(Enum):
+class OduOverheads(OtnOverheads):
     res1: OtnField = OtnField(name="res1", field_type=OtnFieldTypes.RES,
         position=Position(col=0, row=1), dimension=Dimension(nrows=1, ncols=2))
     pm_tcm: OtnField = OtnField(name="pm_tcm", field_type=OtnFieldTypes.PM_TCM,
@@ -15,27 +13,27 @@ class OduOverheads(Enum):
         position=Position(col=3, row=1), dimension=Dimension(nrows=1, ncols=1))
     tcm6: OtnField = OtnField(name="tcm6", field_type=OtnFieldTypes.TCM,
         position=Position(col=4, row=1), dimension=Dimension(nrows=1, ncols=3),
-        inner_fields=copy.deepcopy(TcmInnerFields.get_fields()))
+        inner_fields=TcmInnerFields.get_fields())
     tcm5: OtnField = OtnField(name="tcm5", field_type=OtnFieldTypes.TCM,
         position=Position(col=7, row=1), dimension=Dimension(nrows=1, ncols=3),
-        inner_fields=copy.deepcopy(TcmInnerFields.get_fields()))
+        inner_fields=TcmInnerFields.get_fields())
     tcm4: OtnField = OtnField( name="tcm4", field_type=OtnFieldTypes.TCM,
         position=Position(col=10, row=1), dimension=Dimension(nrows=1, ncols=3),
-        inner_fields=copy.deepcopy(TcmInnerFields.get_fields()))
+        inner_fields=TcmInnerFields.get_fields())
     exp2: OtnField = OtnField( name="exp2", field_type=OtnFieldTypes.EXP,
         position=Position(col=13, row=1), dimension=Dimension(nrows=1, ncols=1))
     tcm3: OtnField = OtnField(name="tcm3", field_type=OtnFieldTypes.TCM,
         position=Position(col=0, row=2), dimension=Dimension(nrows=1, ncols=3),
-        inner_fields=copy.deepcopy(TcmInnerFields.get_fields()))
+        inner_fields=TcmInnerFields.get_fields())
     tcm2: OtnField = OtnField( name="tcm2", field_type=OtnFieldTypes.TCM,
         position=Position(col=3, row=2), dimension=Dimension(nrows=1, ncols=3),
-        inner_fields=copy.deepcopy(TcmInnerFields.get_fields()))
+        inner_fields=TcmInnerFields.get_fields())
     tcm1: OtnField = OtnField( name="tcm1", field_type=OtnFieldTypes.TCM,
         position=Position(col=6, row=2), dimension=Dimension(nrows=1, ncols=3),
-        inner_fields=copy.deepcopy(TcmInnerFields.get_fields()))
+        inner_fields=TcmInnerFields.get_fields())
     pm: OtnField = OtnField( name="pm", field_type=OtnFieldTypes.PM,
         position=Position(col=9, row=2), dimension=Dimension(nrows=1, ncols=3),
-        inner_fields=copy.deepcopy(PmInnerFields.get_fields()))
+        inner_fields=PmInnerFields.get_fields())
     exp3: OtnField = OtnField( name="exp3", field_type=OtnFieldTypes.EXP,
         position=Position(col=12, row=2), dimension=Dimension(nrows=1, ncols=2))
     gcc1: OtnField = OtnField(name="gcc1", field_type=OtnFieldTypes.GCC,
