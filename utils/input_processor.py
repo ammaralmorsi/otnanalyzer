@@ -63,14 +63,7 @@ class InputProcessor:
         return formatted_frames
 
 
-filepath = "C:/Users/ashar/OneDrive/Desktop/testinggg/otnanalyzer/InputTests/input.txt"
 
-x = InputProcessor(filepath)
-
-for x in x.formatted_frames:
-    for j in x:
-        print(j)
-    print("-----------")
 
 
 

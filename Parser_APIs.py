@@ -1,11 +1,6 @@
-from src.backend.FrameBuilder.ODU_Frame import ODU_Frame
-from src.backend.FrameBuilder.OPU_Frame import OPU_Frame
-from src.backend.FrameBuilder.OTU_Frame import OTU_Frame
-from src.backend.PreProcessing.Input_Processor import InputProcessor
+
 from Configuration.OTN_Fields_Config import OTN_OH
 from Configuration.OTN_Field_Data import otn_field_data
-from Configuration.Log_Config import Logger
-import os , logging
 
 
 """
@@ -21,11 +16,7 @@ import os , logging
 class parser_API:
 
     def __init__(self, filepath, frametype):
-        Logger.log_init()
-        self.preprocessed_file = InputProcessor(filepath, frametype).get_File_in_STND_Format()
-        self.opu = OPU_Frame(self.preprocessed_file)
-        self.odu = ODU_Frame(self.preprocessed_file)
-        self.otu = OTU_Frame(self.preprocessed_file)
+            pass
 
 
     def get_otn_frame(self):

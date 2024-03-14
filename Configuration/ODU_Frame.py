@@ -1,5 +1,4 @@
 from Configuration.OTN_Fields_Config import OTN_OH
-import logging
 
 class ODU_Frame:
 
@@ -31,7 +30,6 @@ class ODU_Frame:
             return self.ODU_Columns
 
         except AttributeError as e:
-            logging.error(f"# An unexpected error occurred: {e}")
             return None
 
     def ODU_OverHead_Field_Constructor(self):
