@@ -1,10 +1,10 @@
-from generator.utils import OverheadValue, FieldGenerator
+from utils import OverheadGenerator, OverheadValue
 
 
-class ResOverheadGenerator(FieldGenerator):
+class ResOverheadGenerator(OverheadGenerator):
     def __init__(self, size:int):
-        # size in bytes
-        self.size = size
+        self.size = size  # in bytes
 
-    def get_next_value(self) -> OverheadValue:
+    @property
+    def next_value(self) -> OverheadValue:
         return OverheadValue(binary_string=''.zfill(8*self.size))

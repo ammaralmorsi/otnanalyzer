@@ -1,6 +1,6 @@
 import unittest
 
-from generator.utils import OverheadValue
+from utils import OverheadValue
 
 
 class TestFASOverheads(unittest.TestCase):
@@ -13,17 +13,17 @@ class TestFASOverheads(unittest.TestCase):
 
     def test_fas(self):
         expected: list[int] = [246, 246, 246, 40, 40, 40]
-        ov:OverheadValue = self.fas_generator.get_next_value()
-        self.assertListEqual(ov.as_int_list, expected)
-        self.assertListEqual(ov.as_int_list, expected)
+        ov:OverheadValue = self.fas_generator.next_value
+        self.assertListEqual(ov.as_list_int, expected)
+        self.assertListEqual(ov.as_list_int, expected)
 
     def test_mfas(self):
         for i in range(256):
-            self.assertEqual(self.mfas_generator.get_next_value().as_int, i)
+            self.assertEqual(self.mfas_generator.next_value.as_int, i)
 
-        self.assertEqual(self.mfas_generator.get_next_value().as_int, 0)
+        self.assertEqual(self.mfas_generator.next_value.as_int, 0)
 
         for i in range(1, 256):
-            self.assertEqual(self.mfas_generator.get_next_value().as_int, i)
+            self.assertEqual(self.mfas_generator.next_value.as_int, i)
 
-        self.assertEqual(self.mfas_generator.get_next_value().as_int, 0)
+        self.assertEqual(self.mfas_generator.next_value.as_int, 0)

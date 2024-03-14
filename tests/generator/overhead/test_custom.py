@@ -1,6 +1,6 @@
 import unittest
 
-from generator.utils import OverheadValue
+from utils import OverheadValue
 
 
 class TestCustomOverheadGenerator(unittest.TestCase):
@@ -9,12 +9,12 @@ class TestCustomOverheadGenerator(unittest.TestCase):
 
         expected:int = 212
         og = FixedValueOverheadGenerator(fixed_value=expected)
-        ov:OverheadValue = og.get_next_value()
+        ov:OverheadValue = og.next_value
         self.assertEqual(ov.as_int, expected)
 
         expected:int = 2123
         og = FixedValueOverheadGenerator(fixed_value=expected)
-        ov:OverheadValue = og.get_next_value()
+        ov:OverheadValue = og.next_value
         def should_raise_value_error():
             ov.as_int
         self.assertRaises(ValueError, should_raise_value_error)
@@ -24,17 +24,17 @@ class TestCustomOverheadGenerator(unittest.TestCase):
 
         og = SweepOverheadGenerator(start=0, end=10)
         for i in range(10):
-            ov:OverheadValue = og.get_next_value()
+            ov:OverheadValue = og.next_value
             self.assertEqual(ov.as_int, i)
-        ov:OverheadValue = og.get_next_value()
+        ov:OverheadValue = og.next_value
         self.assertEqual(ov.as_int, 10)  # assuming inclusion
 
-        ov:OverheadValue = og.get_next_value()
+        ov:OverheadValue = og.next_value
         self.assertEqual(ov.as_int, 0)
 
         og = SweepOverheadGenerator(start=10, end=10)
         for _ in range(10):
-            ov:OverheadValue = og.get_next_value()
+            ov:OverheadValue = og.next_value
             self.assertEqual(ov.as_int, 10)
 
         self.assertRaises(ValueError, SweepOverheadGenerator, 10, 9)

@@ -1,5 +1,5 @@
 from utils import OtnField, Dimension, Position
-from generator.utils.frame import OpuOverheads
+from config import OpuOverheads
 from generator.payload.prbs import PRBSPayloadGenerator
 from utils.base_classes import PayloadGenerator
 from utils.field_types import OtnFieldTypes
@@ -8,7 +8,6 @@ from utils.field_types import OtnFieldTypes
 class OpuFrameGenerator:
     def __init__(self, seed=2):
         self.dimension: Dimension = Dimension(nrows=4, ncols=3810)
-        self.overheads: OpuOverheads = OpuOverheads()
         self.payload: OtnField = OtnField(
             name="prbs",
             field_type=OtnFieldTypes.OPU_PAYLOAD,
@@ -28,10 +27,9 @@ class OpuFrameGenerator:
                 self._frame[self.payload.position.row + rn][
                     self.payload.position.col + cn
                 ] = payload[rn * self.dimension.nrows + cn]
-        for otn_field in self.overheads:
-            self._frame[otn_field.position.row][
-                otn_field.position.col
-            ] = otn_field.generator.get_next_value().as_int
+
+        for otn_field in OpuOverheads.get_fields():
+            otn_field.generator = None
         return self._frame
 
     def __repr__(self) -> str:

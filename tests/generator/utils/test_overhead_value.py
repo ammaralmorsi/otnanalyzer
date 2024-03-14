@@ -1,7 +1,7 @@
 import unittest
 import random
 
-from generator.utils import OverheadValue
+from utils import OverheadValue
 
 
 class TestOverheadValue(unittest.TestCase):
@@ -42,22 +42,22 @@ class TestOverheadValue(unittest.TestCase):
         binary_string:str = self.generate_random_binary_string(size=0)
         ov = OverheadValue(binary_string=binary_string)
         expected: list[int] = []
-        self.assertListEqual(ov.as_int_list, expected)
+        self.assertListEqual(ov.as_list_int, expected)
 
         binary_string:str = "0000000010"
         ov = OverheadValue(binary_string=binary_string)
         expected: list[int] = [0, 2]
-        self.assertListEqual(ov.as_int_list, expected)
+        self.assertListEqual(ov.as_list_int, expected)
 
         binary_string:str = "00001"
         ov = OverheadValue(binary_string=binary_string)
         expected: list[int] = [1]
-        self.assertListEqual(ov.as_int_list, expected)
+        self.assertListEqual(ov.as_list_int, expected)
 
         binary_string:str = "11111111"
         ov = OverheadValue(binary_string=binary_string)
         expected: list[int] = [255]
-        self.assertListEqual(ov.as_int_list, expected)
+        self.assertListEqual(ov.as_list_int, expected)
 
     def test_equality(self):
         binary_string:str = self.generate_random_binary_string(size=0)

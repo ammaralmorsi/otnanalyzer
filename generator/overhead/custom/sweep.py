@@ -1,7 +1,7 @@
-from generator.utils import OverheadValue, FieldGenerator
+from utils import OverheadGenerator, OverheadValue
 
 
-class SweepOverheadGenerator(FieldGenerator):
+class SweepOverheadGenerator(OverheadGenerator):
     def __init__(self, start: int, end: int, size=1):
         if start > end:
             raise ValueError(f"start should be less than or equal to end")
@@ -10,7 +10,8 @@ class SweepOverheadGenerator(FieldGenerator):
         self.current: int = self.start
         self.size: int = size
 
-    def get_next_value(self) -> OverheadValue:
+    @property
+    def next_value(self) -> OverheadValue:
         if self.current > self.end:
             self.current = self.start
         next_value: int = self.current

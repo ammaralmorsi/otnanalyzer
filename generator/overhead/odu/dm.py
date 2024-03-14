@@ -1,6 +1,7 @@
-from generator.utils import OverheadValue, FieldGenerator
+from utils import OverheadGenerator, OverheadValue
 
 
-class DMOverheadGenerator(FieldGenerator):
-    def get_next_value(self) -> OverheadValue:
+class DMOverheadGenerator(OverheadGenerator):
+    @property
+    def next_value(self) -> OverheadValue:
         return OverheadValue(binary_string=''.zfill(1))
