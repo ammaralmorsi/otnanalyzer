@@ -10,6 +10,7 @@ class OduFrameGenerator:
         self.dimension: Dimension = Dimension(nrows=4, ncols=3824)
         self.opu_position: Position = Position(row=0, col=14)
         self.opu_frame: OpuFrameGenerator = opu_frame_generator
+        self.overheads: list[OtnField] = OduOverheads.get_fields()
         self._frame: list[list[int]] = [
             [0 for _ in range(self.dimension.ncols)]
             for _ in range(self.dimension.nrows)
@@ -26,7 +27,7 @@ class OduFrameGenerator:
         for rn in range(self.opu_frame.dimension.nrows):
             for cn in range(self.opu_frame.dimension.ncols):
                 self._frame[self.opu_position.row + rn][self.opu_position.col + cn] = opu_frame[rn][cn]
-        for current_field in OduOverheads.get_fields():
+        for current_field in self.overheads:
             current_field.generator = GeneratorFactory.get_overhead_generator(current_field)
             add_field_to_frame(field=current_field)
         return self._frame
