@@ -26,6 +26,12 @@ class GeneratorFactory:
             return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
         elif otn_field.field_type == OtnFieldTypes.NJO:
             return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
+        elif otn_field.field_type == OtnFieldTypes.GCC:
+            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
+        elif otn_field.field_type == OtnFieldTypes.OSMC:
+            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
+        elif otn_field.field_type == OtnFieldTypes.SM:
+            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
         else:
             raise NotImplemented
 
