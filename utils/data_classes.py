@@ -1,4 +1,3 @@
-from typing import Union
 from dataclasses import dataclass, field
 
 from .base_classes import OtnFieldGenerator
