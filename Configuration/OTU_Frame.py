@@ -1,5 +1,4 @@
 from Configuration.OTN_Fields_Config import OTN_OH
-import logging
 from tabulate import tabulate
 
 class OTU_Frame:
@@ -23,7 +22,7 @@ class OTU_Frame:
             self.Frame_Alignment_overheads_Constructor()
         except (KeyError,TypeError , IndexError) as e:
             print(f"# Error in otu : {e}")
-            logging.error(e)
+
 
     def OTU_OverHead_Column_Data(self):
 
@@ -32,7 +31,6 @@ class OTU_Frame:
             return self.OTU_Columns
 
         except AttributeError as e:
-            logging.error(f"An unexpected error occurred: {e}")
             return None
 
     def FA_overhead_column_data(self):

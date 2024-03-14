@@ -1,3 +1,5 @@
+from __future__ import annotations  # for python version compatibilty issues
+
 from typing import Optional
 from dataclasses import dataclass, field
 

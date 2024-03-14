@@ -1,6 +1,5 @@
 
 from Configuration.OTN_Fields_Config import OTN_OH
-import logging
 
 class OPU_Frame:
 
@@ -24,7 +23,7 @@ class OPU_Frame:
             self.OPU_OverHead_Fields_Constrcutor()
         except (TypeError , KeyError , IndexError) as e:
             print(f"# Error in opu : {e}")
-            logging.error(e)
+
 
     def OPU_All_Frame_Constructror(self):
         try:
@@ -40,7 +39,7 @@ class OPU_Frame:
             self.OPU_Payload_Columns = [row[16:3824] for row in self.Frame]
             return self.OPU_Payload_Columns
         except (IndexError , TypeError , AttributeError) as e:
-            logging.error(f"Error: , {e}")
+
             print(f"Error: , {e}")
 
 
@@ -51,7 +50,7 @@ class OPU_Frame:
             self.OPU_Overhead_Columns[3].append(self.Frame[3][16])
             return self.OPU_Overhead_Columns
         except (IndexError, TypeError) as e:
-            logging.error(f"Error: , {e}")
+
             print(f"Error: , {e}")
 
 
@@ -71,7 +70,6 @@ class OPU_Frame:
         try:
             return self.OPU_Overhead_data_mapper[OPU_Field]
         except (KeyError , AttributeError) as e:
-            logging.error(f"OPU Field key not found , + {e}")
             print(f"opu field not found , + {e}")
 
     def visualize_OPU(self):
@@ -85,5 +83,4 @@ class OPU_Frame:
             print("-----------------------------------")
             return ""
         except (IndexError, TypeError) as e:
-            logging.error(f"Error: , {e}")
             print(f"Error: , {e}")
