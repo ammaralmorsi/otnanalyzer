@@ -4,7 +4,7 @@ import random
 from utils import OverheadValue
 
 
-class TestOverheadValue(unittest.TestCase):
+class OtuOverheads(unittest.TestCase):
     def generate_random_binary_string(self, size:int) -> str:
         return ''.join(random.choice("01") for _ in range(size))
 
