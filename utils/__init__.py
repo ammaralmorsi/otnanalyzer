@@ -6,3 +6,4 @@ from .values import OverheadValue
 from .values import PayloadValue
 from .base_classes import OverheadGenerator
 from .base_classes import PayloadGenerator
+from .generator_factory import GeneratorFactory

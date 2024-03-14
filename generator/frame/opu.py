@@ -10,7 +10,7 @@ class OpuFrameGenerator:
         self.dimension: Dimension = Dimension(nrows=4, ncols=3810)
         self.payload: OtnField = OtnField(
             name="prbs",
-            field_type=OtnFieldTypes.OPU_PAYLOAD,
+            field_type=OtnFieldTypes.OPU_PAYLOAD_PRBS,
             position=Position(col=2, row=0),
             dimension=Dimension(nrows=4, ncols=3808),
         )
