@@ -1,15 +1,14 @@
 import unittest
 
 from utils import OverheadValue
+from utils import GeneratorFactory
+from config import OtuOverheads
 
 
 class TestFASOverheads(unittest.TestCase):
-    def setUp(self): 
-        from generator.overhead.fa import FASOverheadGenerator
-        from generator.overhead.fa import MFASOverheadGenerator
-
-        self.fas_generator = FASOverheadGenerator()
-        self.mfas_generator = MFASOverheadGenerator()
+    def setUp(self):
+        self.fas_generator = GeneratorFactory.get_overhead_generator(OtuOverheads.fas.value)
+        self.mfas_generator = GeneratorFactory.get_overhead_generator(OtuOverheads.mfas.value)
 
     def test_fas(self):
         expected: list[int] = [246, 246, 246, 40, 40, 40]

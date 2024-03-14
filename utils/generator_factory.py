@@ -1,6 +1,8 @@
 from generator.payload import FixedValuePayloadGenerator
 from generator.payload import PRBSPayloadGenerator
 from generator.overhead.custom import FixedValueOverheadGenerator
+from generator.overhead.custom import SweepOverheadGenerator
+from generator.overhead.fa import FASOverheadGenerator
 
 from .data_classes import OtnField, OtnFieldTypes
 from .base_classes import OverheadGenerator, PayloadGenerator
@@ -32,6 +34,10 @@ class GeneratorFactory:
             return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
         elif otn_field.field_type == OtnFieldTypes.SM:
             return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
+        elif otn_field.field_type == OtnFieldTypes.FAS:
+            return FASOverheadGenerator()
+        elif otn_field.field_type == OtnFieldTypes.MFAS:
+            return SweepOverheadGenerator(start=0, end=255, size=otn_field.dimension.size)
         else:
             raise NotImplemented
 
