@@ -1,7 +1,7 @@
 from typing import Union
 from dataclasses import dataclass, field
 
-from .base_classes import OverheadGenerator, PayloadGenerator
+from .base_classes import OtnFieldGenerator
 from .field_types import OtnFieldTypes
 
 
@@ -28,7 +28,7 @@ class OtnField:
     position: Position
     dimension: Dimension
     inner_fields: list["OtnField"] = field(default_factory=list)
-    generator: Union[OverheadGenerator, PayloadGenerator] = field(init=False)
+    generator: OtnFieldGenerator = field(init=False)
 
     def __repr__(self) -> str:
         return self.name
