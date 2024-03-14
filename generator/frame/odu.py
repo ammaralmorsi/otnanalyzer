@@ -23,9 +23,3 @@ class OduFrameGenerator:
         for otn_field in OduOverheads.get_fields():
             otn_field.generator = None
         return self._frame
-
-    def __repr__(self) -> str:
-        import numpy as np
-
-        np.set_printoptions(edgeitems=18, linewidth=200)
-        return repr(np.array(self._frame))

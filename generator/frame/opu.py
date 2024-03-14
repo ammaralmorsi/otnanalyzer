@@ -31,8 +31,3 @@ class OpuFrameGenerator:
         for otn_field in OpuOverheads.get_fields():
             otn_field.generator = None
         return self._frame
-
-    def __repr__(self) -> str:
-        import numpy as np
-
-        return repr(np.array(self._frame))
