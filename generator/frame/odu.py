@@ -1,7 +1,9 @@
 from utils import Position, Dimension
 from config import OduOverheads
-from .opu import OpuFrameGenerator
+from utils import GeneratorFactory
+from utils import OtnField
 
+from .opu import OpuFrameGenerator
 
 class OduFrameGenerator:
     def __init__(self, opu_frame_generator: OpuFrameGenerator):
@@ -14,12 +16,17 @@ class OduFrameGenerator:
         ]
 
     def get_next_frame(self) -> list[list[int]]:
+        def add_field_to_frame(field: OtnField) -> None:
+            field_value: list[int] = field.generator.next_value.as_list_int
+            for rn in range(field.dimension.nrows):
+                for cn in range(field.dimension.ncols):
+                    self._frame[field.position.row + rn][field.position.col + cn] = field_value[rn * field.dimension.nrows + cn]
+
         opu_frame: list[list[int]] = self.opu_frame.get_next_frame()
         for rn in range(self.opu_frame.dimension.nrows):
             for cn in range(self.opu_frame.dimension.ncols):
-                self._frame[self.opu_position.row + rn][self.opu_position.col + cn] = (
-                    opu_frame[rn][cn]
-                )
-        for otn_field in OduOverheads.get_fields():
-            otn_field.generator = None
+                self._frame[self.opu_position.row + rn][self.opu_position.col + cn] = opu_frame[rn][cn]
+        for current_field in OduOverheads.get_fields():
+            current_field.generator = GeneratorFactory.get_overhead_generator(current_field)
+            add_field_to_frame(field=current_field)
         return self._frame
