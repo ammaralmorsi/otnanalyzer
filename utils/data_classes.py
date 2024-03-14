@@ -1,4 +1,7 @@
+from typing import Optional
 from dataclasses import dataclass, field
+
+from .base_classes import OverheadGenerator, PayloadGenerator
 
 from .field_types import OtnFieldTypes
 
@@ -26,6 +29,10 @@ class OtnField:
     position: Position
     dimension: Dimension
     inner_fields: list["OtnField"] = field(default_factory=list)
+    generator: Optional[OverheadGenerator|PayloadGenerator] = field(init=False)
+
+    def __post_init__(self):
+        self.generator = None
 
     def __repr__(self) -> str:
         return self.name
