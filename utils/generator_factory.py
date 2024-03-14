@@ -22,22 +22,25 @@ class GeneratorFactory:
                 return FixedValueOverheadGenerator(fixed_value=int('FD', 16), size=otn_field.dimension.size)
             else:  # OPU_PAYLOAD_PRBS
                 return FixedValueOverheadGenerator(fixed_value=int('FE', 16), size=otn_field.dimension.size)
-        elif otn_field.field_type == OtnFieldTypes.JC:
-            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
-        elif otn_field.field_type == OtnFieldTypes.PJO:
-            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
-        elif otn_field.field_type == OtnFieldTypes.NJO:
-            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
-        elif otn_field.field_type == OtnFieldTypes.GCC:
-            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
-        elif otn_field.field_type == OtnFieldTypes.OSMC:
-            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
-        elif otn_field.field_type == OtnFieldTypes.SM:
-            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
         elif otn_field.field_type == OtnFieldTypes.FAS:
             return FASOverheadGenerator()
         elif otn_field.field_type == OtnFieldTypes.MFAS:
             return SweepOverheadGenerator(start=0, end=255, size=otn_field.dimension.size)
+        elif otn_field.field_type in [
+                OtnFieldTypes.JC,
+                OtnFieldTypes.PJO,
+                OtnFieldTypes.NJO,
+                OtnFieldTypes.OSMC,
+                OtnFieldTypes.GCC,
+                OtnFieldTypes.SM,
+                OtnFieldTypes.PM_TCM,
+                OtnFieldTypes.APS_PCC,
+                OtnFieldTypes.TCM,
+                OtnFieldTypes.PM,
+                OtnFieldTypes.EXP,
+                OtnFieldTypes.RES,
+            ]:
+            return FixedValueOverheadGenerator(fixed_value=0, size=otn_field.dimension.size)
         else:
             raise NotImplemented
 

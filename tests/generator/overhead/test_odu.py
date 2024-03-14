@@ -1,90 +1,66 @@
 import unittest
 
 from utils import OverheadValue
+from utils import GeneratorFactory
+from config import OduOverheads
 
 
 class TestODUGenerators(unittest.TestCase):
-    def test_dm(self):
-        from generator.overhead.odu import DMOverheadGenerator
-        og = DMOverheadGenerator()
+    def test_pm_tcm(self):
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.pm_tcm.value)
         ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(1))
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.pm_tcm.value.dimension.size))
 
     def test_gcc(self):
-        from generator.overhead.odu import GCC1OverheadGenerator
-        og = GCC1OverheadGenerator()
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.gcc1.value)
         ov:OverheadValue = og.next_value
-        self.assertListEqual(ov.as_list_int, [0, 0])
+        self.assertListEqual(ov.as_list_int, [0 for _ in range(OduOverheads.gcc1.value.dimension.size)])
 
-        from generator.overhead.odu import GCC2OverheadGenerator
-        og = GCC2OverheadGenerator()
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.gcc2.value)
         ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(2*8))
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.gcc1.value.dimension.size))
 
     def test_aps_pcc(self):
-        from generator.overhead.odu import APS_PCCOverheadGenerator
-        og = APS_PCCOverheadGenerator()
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.aps_pcc.value)
         ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(4*8))
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.aps_pcc.value.dimension.size))
 
-    def test_tcm_tti(self):
-        from generator.overhead.odu import TCM_TTIOverheadGenerator
-        og = TCM_TTIOverheadGenerator()
+    def test_tcm(self):
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.tcm1.value)
         ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(8))
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.tcm1.value.dimension.size))
 
-    def test_tcm_bip8(self):
-        from generator.overhead.odu import TCM_BIP8OverheadGenerator
-        og = TCM_BIP8OverheadGenerator()
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.tcm3.value)
         ov:OverheadValue = og.next_value
-        # NOTE: this should break when implemnting the algorithm.
-        self.assertEqual(ov.as_binary_string, ''.zfill(8))
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.tcm3.value.dimension.size))
 
-    def test_tcm_bei_biae(self):
-        from generator.overhead.odu import TCM_BEI_BIAEOverheadGenerator
-        og = TCM_BEI_BIAEOverheadGenerator()
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.tcm5.value)
         ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(4))
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.tcm5.value.dimension.size))
 
-    def test_tcm_bdi(self):
-        from generator.overhead.odu import TCM_BDIOverheadGenerator
-        og = TCM_BDIOverheadGenerator()
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.tcm6.value)
         ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(1))
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.tcm6.value.dimension.size))
 
-    def test_tcm_stat(self):
-        from generator.overhead.odu import TCM_STATOverheadGenerator
-        og = TCM_STATOverheadGenerator()
+    def test_pm(self):
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.pm.value)
         ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(3))
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.pm.value.dimension.size))
 
-    def test_pm_tti(self):
-        from generator.overhead.odu import PM_TTIOverheadGenerator
-        og = PM_TTIOverheadGenerator()
-        ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(8))
+    def test_exp(self):
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.exp1.value)
+        ov: OverheadValue = og.next_value
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.exp1.value.dimension.size))
 
-    def test_pm_bip8(self):
-        from generator.overhead.odu import PM_BIP8OverheadGenerator
-        og = PM_BIP8OverheadGenerator()
-        ov:OverheadValue = og.next_value
-        # NOTE: this should break when implemnting the algorithm.
-        self.assertEqual(ov.as_binary_string, ''.zfill(8))
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.exp3.value)
+        ov: OverheadValue = og.next_value
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.exp3.value.dimension.size))
 
-    def test_pm_bei(self):
-        from generator.overhead.odu import PM_BEIOverheadGenerator
-        og = PM_BEIOverheadGenerator()
-        ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(4))
+    def test_res(self):
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.res1.value)
+        ov: OverheadValue = og.next_value
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.res1.value.dimension.size))
 
-    def test_pm_bdi(self):
-        from generator.overhead.odu import PM_BDIOverheadGenerator
-        og = PM_BDIOverheadGenerator()
-        ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(1))
-
-    def test_pm_stat(self):
-        from generator.overhead.odu import PM_STATOverheadGenerator
-        og = PM_STATOverheadGenerator()
-        ov:OverheadValue = og.next_value
-        self.assertEqual(ov.as_binary_string, ''.zfill(3))
+        og = GeneratorFactory.get_overhead_generator(otn_field=OduOverheads.res2.value)
+        ov: OverheadValue = og.next_value
+        self.assertEqual(ov.as_binary_string, ''.zfill(8*OduOverheads.res2.value.dimension.size))
