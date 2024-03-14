@@ -17,15 +17,11 @@ class OverheadValue:
         return int(self.as_binary_string, 2)
 
     @property
-    def as_int_list(self) -> list[int]:
+    def as_list_int(self) -> list[int]:
         binary_string = self.as_binary_string
         padded_string = binary_string.zfill(len(binary_string) + (8 - len(binary_string) % 8) % 8)
         bytes_list = [padded_string[i:i+8] for i in range(0, len(padded_string), 8)]
         return [int(byte_str, 2) for byte_str in bytes_list]
-
-    @property
-    def as_list_int(self) -> list[int]:
-        return self.as_int_list
 
     def __eq__(self, other):
         if isinstance(other, OverheadValue):
@@ -38,7 +34,7 @@ class PayloadValue:
         self._value:list[int] = data
 
     @property
-    def as_int_list(self) -> list[int]:
+    def as_list_int(self) -> list[int]:
         return self._value
 
     def __eq__(self, other):

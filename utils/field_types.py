@@ -2,6 +2,8 @@ import enum
 
 
 class OtnFieldTypes(enum.Enum):
+    OPU_PAYLOAD = enum.auto()
+
     FAS = enum.auto()
     MFAS = enum.auto()
 
