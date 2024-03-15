@@ -3,6 +3,7 @@ from config.overhead.inner import SmInnerFields
 from tabulate import tabulate
 
 
+
 class Otu:
 
     def __init__(self, formatted_frame):
@@ -44,7 +45,7 @@ class Otu:
                 hex(int(inner_index_binary_value, 2))[2:] # the [2:] to remove the 0x when converting to hex
             )
 
-    def overhead_field_finder(self, otu_oh):
+    def otu_overhead_field_finder(self, otu_oh):
 
         return self.overhead_data[otu_oh.name]
 
@@ -56,7 +57,6 @@ class Otu:
 
 
     def __str__(self):
-
         column_headers = ["FAS", "MFAS", "SM", "GCC0", "OSMC", "RES"]
         data_frame = []
         for otu_oh in OtuOverheads:
