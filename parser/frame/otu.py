@@ -45,6 +45,9 @@ class Otu:
                 hex(int(inner_index_binary_value, 2))[2:] # the [2:] to remove the 0x when converting to hex
             )
 
+    def otu_overhead_data(self):
+        return self.overhead_data
+
     def otu_overhead_field_finder(self, otu_oh):
 
         return self.overhead_data[otu_oh.name]
