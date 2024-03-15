@@ -34,6 +34,9 @@ class Otu:
             inner_binary_value = sm_field_binary_value[inner_value.position.col:inner_value.position.col + inner_value.dimension.ncols]
             self.overhead_data[inner_field.value.name] = hex(int(inner_binary_value, 2))[2:]    #binary -> int -> hex , to store it back in original form
 
+    def otu_overhead_data(self):
+        return self.overhead_data
+
     def otu_overhead_field_finder(self, otu_oh):
 
         return self.overhead_data[otu_oh]
