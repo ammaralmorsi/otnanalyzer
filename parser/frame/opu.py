@@ -22,6 +22,10 @@ class Opu:
     def opu_overhead_field_finder(self, opu_oh):
         return self.overhead_data[opu_oh.name]
 
+    def __str__(self):
+        for overhead in self.overhead_data:
+            print(f"{overhead} field value is : {self.overhead_data[overhead]}")
+        return ""
 
 
 
