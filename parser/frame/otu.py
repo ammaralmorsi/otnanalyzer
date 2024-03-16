@@ -1,7 +1,6 @@
 from config.overhead.otu import OtuOverheads
 from config.overhead.inner import SmInnerFields
 
-
 class Otu:
 
     def __init__(self, formatted_frame):
