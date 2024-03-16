@@ -1,5 +1,6 @@
 from config.overhead.otu import OtuOverheads
 from config.overhead.inner import SmInnerFields
+from tabulate import tabulate
 
 class Otu:
 
@@ -18,6 +19,7 @@ class Otu:
                 [oh_value.position.col:oh_value.position.col+oh_value.dimension.ncols]
             )
 
+
         """
         Below we are converting the sm field value into binary (24 bits) to assign the data
         of the inner fields of sm field , as each inner field position is relative to the sm field,
@@ -35,11 +37,19 @@ class Otu:
 
     def overhead_field_finder(self, otu_oh):
 
-        return self.overhead_data[otu_oh]
+        return self.overhead_data[otu_oh.name]
 
+    def __str__(self):
 
+        column_headers = ["FAS", "MFAS", "SM", "GCC0", "OSMC", "RES"]
+        data_frame = []
+        for otu_oh in OtuOverheads:
+            combined_value = ' '.join(self.overhead_field_finder(otu_oh))
+            data_frame.append([combined_value])
+        transposed_data = list(zip(*data_frame))
 
-
+        print(tabulate(transposed_data, headers=column_headers, tablefmt="grid" , stralign="center" , numalign="center"))
+        return ""
 
 
 ##################################################################
@@ -55,8 +65,6 @@ test = [['0a', 'cc', 'a3', 'd5', '35', '15', '56', '5b', '31', 'cf', '42', '0f',
 
 x = Otu(test)
 
-for i in OtuOverheads:
-    print(f"{i.name} field : {x.overhead_field_finder(i.name)}")
-    if(i.value.inner_fields) is not None:
-        for j in i.value.inner_fields:
-            print(f"\t{j.name} is : {x.overhead_field_finder(j.name)}")
+print(x)
+
+
