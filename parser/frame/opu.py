@@ -23,15 +23,23 @@ class Opu:
         return self.overhead_data[opu_oh.name]
 
     def __str__(self):
-        data_frame = []
-        for otu_oh in OpuOverheads:
-            combined_value = ' '.join(self.opu_overhead_field_finder(otu_oh))
-            data_frame.append(combined_value)
-        transposed_data = [data_frame[i:i + 2] for i in range(0, len(data_frame), 2)]  # Split data into 2 columns
-        x = ' '.join(transposed_data.pop())
-        transposed_data[3].append(x)
-        table = tabulate(transposed_data, tablefmt="grid")
-        print(table)
+        header_itr = 0
+        column_header = [
+            ["JC4", "JC1"], ["JC5", "JC2"], ["JC6", "JC3"], ["PSI", "NJO" , "PJO"]
+        ]
+        row_data_frame = []
+        for opu_oh in OpuOverheads:
+            if opu_oh.name == "jc5" or opu_oh.name == "jc6" or opu_oh.name == "psi":
+                first_row_transposed_data = list(zip(*row_data_frame))
+                print(tabulate(first_row_transposed_data, headers=column_header[header_itr], tablefmt="grid",
+                               stralign="center", numalign="center"))
+                row_data_frame = []
+                header_itr += 1
+            combined_value = ' '.join(self.opu_overhead_field_finder(opu_oh))
+            row_data_frame.append([combined_value])
+        first_row_transposed_data = list(zip(*row_data_frame))
+        print(tabulate(first_row_transposed_data, headers=column_header[3], tablefmt="grid",
+                       stralign="center", numalign="center"))
         return ""
 
 
