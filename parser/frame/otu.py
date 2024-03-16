@@ -3,7 +3,6 @@ from config.overhead.inner import SmInnerFields
 from tabulate import tabulate
 
 
-
 class Otu:
 
     def __init__(self, formatted_frame):
