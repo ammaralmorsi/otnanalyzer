@@ -19,21 +19,28 @@ class Otu:
                 [oh_value.position.col:oh_value.position.col+oh_value.dimension.ncols]
             )
 
+            if len(oh_value.inner_fields) > 0:
+                self.construct_inner_field(oh_value)
 
+    def construct_inner_field(self , parent_overhead_field):
         """
-        Below we are converting the sm field value into binary (24 bits) to assign the data
-        of the inner fields of sm field , as each inner field position is relative to the sm field,
-        not the whole frame
+            Below we are converting the parameter (parent field value) into binary to assign the data
+            of the inner fields of parent field (which is the parameter in this func) ,
+            as each inner field position is relative to its parent field, not the whole frame
+        Args:
+            Odu overhead field : that has a specific internal structure that are divided into inner fields
         """
 
-        sm_field_value = self.overhead_data[OtuOverheads.sm.name]
-        sm_binary_list = [bin(int(hex_str, 16))[2:].zfill(8) for hex_str in sm_field_value]
-        sm_field_binary_value = ''.join(sm_binary_list)
+        inner_field_value = self.overhead_data[parent_overhead_field.name]
+        inner_binary_list = [bin(int(hex_str, 16))[2:].zfill(8) for hex_str in inner_field_value]
+        inner_field_binary_value = ''.join(inner_binary_list)
 
-        for inner_field in SmInnerFields:
-            inner_value = inner_field.value
-            inner_binary_value = sm_field_binary_value[inner_value.position.col:inner_value.position.col + inner_value.dimension.ncols]
-            self.overhead_data[inner_field.value.name] = hex(int(inner_binary_value, 2))[2:]    #binary -> int -> hex , to store it back in original form
+        for inner_index in range(len(parent_overhead_field.inner_fields)):
+            inner_name = parent_overhead_field.inner_fields[inner_index]
+            parent_overhead_field.inner_fields[inner_index] = (
+                inner_field_binary_value[inner_name.position.col:inner_name.position.col + inner_name.dimension.ncols]
+            )
+
 
     def overhead_field_finder(self, otu_oh):
 
@@ -51,6 +58,13 @@ class Otu:
         print(tabulate(transposed_data, headers=column_headers, tablefmt="grid" , stralign="center" , numalign="center"))
         return ""
 
+    def visualize_inner_field(self , parent_oh):
+        columns = []
+        pass
+
+
+
+
 
 ##################################################################
 
@@ -65,6 +79,5 @@ test = [['0a', 'cc', 'a3', 'd5', '35', '15', '56', '5b', '31', 'cf', '42', '0f',
 
 x = Otu(test)
 
-print(x)
 
 
