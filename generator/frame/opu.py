@@ -15,6 +15,8 @@ class OpuFrameGenerator:
         )
         self.payload.generator = GeneratorFactory.get_payload_generator(self.payload, seed)
         self.overheads: list[OtnField] = OpuOverheads.get_fields()
+        for current_field in self.overheads:
+            current_field.generator = GeneratorFactory.get_overhead_generator(current_field)
         self._frame: list[list[int]] = [
             [0 for _ in range(self.dimension.ncols)]
             for _ in range(self.dimension.nrows)
@@ -29,6 +31,5 @@ class OpuFrameGenerator:
 
         add_field_to_frame(field=self.payload)
         for current_field in self.overheads:
-            current_field.generator = GeneratorFactory.get_overhead_generator(current_field)
             add_field_to_frame(field=current_field)
         return self._frame
