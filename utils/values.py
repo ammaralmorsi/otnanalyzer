@@ -41,3 +41,21 @@ class PayloadValue:
         if isinstance(other, PayloadValue):
             return self._value == other._value
         return False
+
+
+class FrameValue:
+    def __init__(self, data: list[list[int]]):
+        self._value: list[list[int]] = data
+
+    @property
+    def as_2d_list_int(self) -> list[list[int]]:
+        return self._value
+
+    @property
+    def as_list_int(self) -> list[int]:
+        return [col for row in self._value for col in row]
+
+    def __eq__(self, other):
+        if isinstance(other, FrameValue):
+            return self._value == other._value
+        return False

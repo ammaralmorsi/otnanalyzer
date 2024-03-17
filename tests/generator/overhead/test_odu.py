@@ -1,8 +1,8 @@
 import unittest
 
 from utils import OverheadValue
-from utils import GeneratorFactory
-from config import OduOverheads
+from generator.factory import GeneratorFactory
+from config.overhead import OduOverheads
 
 
 class TestODUGenerators(unittest.TestCase):

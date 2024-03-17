@@ -1,10 +1,10 @@
 import unittest
 
 from utils import OverheadValue
-from config import OpuOverheads
-from utils import GeneratorFactory
+from config.overhead import OpuOverheads
+from utils.field_types import OtnPayloadTypes
+from generator.factory import GeneratorFactory
 from utils import OverheadGenerator
-from utils import OtnFieldTypes
 
 
 class TestOPUOverheads(unittest.TestCase):
@@ -32,14 +32,14 @@ class TestOPUOverheads(unittest.TestCase):
         self.assertEqual(ov.as_int, 0)
 
     def test_psi(self):
-        GeneratorFactory.set_payload_type(field_type=OtnFieldTypes.OPU_PAYLOAD_NULL)
+        GeneratorFactory.set_payload_type(payload_type=OtnPayloadTypes.NULL)
         g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.psi.value)
         ov: OverheadValue = g.next_value
         self.assertEqual(int(ov.as_binary_string, 2), int("FD", 16))
         ov:OverheadValue = g.next_value
         self.assertEqual(ov.as_int, int("FD", 16))
 
-        GeneratorFactory.set_payload_type(field_type=OtnFieldTypes.OPU_PAYLOAD_PRBS)
+        GeneratorFactory.set_payload_type(payload_type=OtnPayloadTypes.PRBS)
         g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.psi.value)
         ov: OverheadValue = g.next_value
         ov:OverheadValue = g.next_value

@@ -1,9 +1,23 @@
 import enum
 
 
+class OtnFrameTypes(enum.Enum):
+    OPU = enum.auto()
+    ODU = enum.auto()
+    OTU = enum.auto()
+
+
+class OtnPayloadTypes(enum.Enum):
+    PRBS = enum.auto()
+    NULL = enum.auto()
+
+
 class OtnFieldTypes(enum.Enum):
     OPU_PAYLOAD_PRBS = enum.auto()
     OPU_PAYLOAD_NULL = enum.auto()
+
+    ODU_PAYLOAD_PRBS = enum.auto()
+    ODU_PAYLOAD_NULL = enum.auto()
 
     FAS = enum.auto()
     MFAS = enum.auto()

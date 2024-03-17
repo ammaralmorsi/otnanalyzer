@@ -1,17 +1,16 @@
 import warnings
 import unittest
 
-from generator.frame import OduFrameGenerator, OpuFrameGenerator
-from utils import OtnFieldTypes
+from generator.frame.odu import OduFrameGenerator
+from utils import OtnPayloadTypes
 
 
 class TestOduFrameGenerator(unittest.TestCase):
     def test_null(self):
-        opu = OpuFrameGenerator(OtnFieldTypes.OPU_PAYLOAD_NULL)
-        odu = OduFrameGenerator(opu_frame_generator=opu)
-        l = odu.get_next_frame()
-        l = odu.get_next_frame()
-        l = odu.get_next_frame()
+        odu = OduFrameGenerator(payload_type=OtnPayloadTypes.NULL)
+        l = odu.next_value
+        l = odu.next_value
+        l = odu.next_value
         try:
             import numpy
             numpy.set_printoptions(edgeitems=15, linewidth=180)
@@ -23,11 +22,10 @@ class TestOduFrameGenerator(unittest.TestCase):
 
 
     def test_prbs(self):
-        opu = OpuFrameGenerator(OtnFieldTypes.OPU_PAYLOAD_PRBS, seed=6)
-        odu = OduFrameGenerator(opu_frame_generator=opu)
-        l = odu.get_next_frame()
-        l = odu.get_next_frame()
-        l = odu.get_next_frame()
+        odu = OduFrameGenerator(payload_type=OtnPayloadTypes.PRBS)
+        l = odu.next_value
+        l = odu.next_value
+        l = odu.next_value
         try:
             import numpy
             numpy.set_printoptions(edgeitems=15, linewidth=180)

@@ -1,8 +1,8 @@
 import unittest
 
 from utils import OverheadValue
-from utils import GeneratorFactory
-from config import OtuOverheads
+from generator.factory import GeneratorFactory
+from config.overhead import OtuOverheads
 
 
 class TestFASOverheads(unittest.TestCase):

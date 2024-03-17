@@ -1,35 +1,27 @@
-from utils import OtnField, Dimension, Position
-from config import OpuOverheads
-from utils import OtnFieldTypes
-from utils import GeneratorFactory
+from config.frame import OtnFrameConfig
+from utils.values import FrameValue
+from utils.base_classes import FrameGenerator
+from utils.data_classes import OtnField, OtnFrame
+from utils.field_types import OtnFrameTypes, OtnPayloadTypes
 
 
-class OpuFrameGenerator:
-    def __init__(self, payload_type: OtnFieldTypes, seed: int=2):
-        self.dimension: Dimension = Dimension(nrows=4, ncols=3810)
-        self.payload: OtnField = OtnField(
-            name=payload_type.name,
-            field_type=payload_type,
-            position=Position(col=2, row=0),
-            dimension=Dimension(nrows=4, ncols=3808),
-        )
-        self.payload.generator = GeneratorFactory.get_payload_generator(self.payload, seed)
-        self.overheads: list[OtnField] = OpuOverheads.get_fields()
-        for current_field in self.overheads:
-            current_field.generator = GeneratorFactory.get_overhead_generator(current_field)
-        self._frame: list[list[int]] = [
-            [0 for _ in range(self.dimension.ncols)]
-            for _ in range(self.dimension.nrows)
-        ]
+class OpuFrameGenerator(FrameGenerator):
+    def __init__(self, payload_type: OtnPayloadTypes, seed: int = 2):
+        self.frame: OtnFrame = OtnFrameConfig.get_new_frame(frame_type=OtnFrameTypes.OPU, payload_type=payload_type, seed=seed)
 
-    def get_next_frame(self) -> list[list[int]]:
+    @property
+    def next_value(self) -> FrameValue:
         def add_field_to_frame(field: OtnField) -> None:
             field_value: list[int] = field.generator.next_value.as_list_int
             for rn in range(field.dimension.nrows):
                 for cn in range(field.dimension.ncols):
-                    self._frame[field.position.row + rn][field.position.col + cn] = field_value[rn * field.dimension.nrows + cn]
+                    next_frame[field.position.row + rn][field.position.col + cn] = field_value[rn * field.dimension.nrows + cn]
 
-        add_field_to_frame(field=self.payload)
-        for current_field in self.overheads:
+        next_frame: list[list[int]] = [
+            [0 for _ in range(self.frame.dimension.ncols)]
+            for _ in range(self.frame.dimension.nrows)
+        ]
+        add_field_to_frame(field=self.frame.payload)
+        for current_field in self.frame.overheads:
             add_field_to_frame(field=current_field)
-        return self._frame
+        return FrameValue(next_frame)
