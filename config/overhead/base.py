@@ -1,7 +1,7 @@
 import copy
 from enum import Enum
 
-from utils import OtnField
+from utils.data_classes import OtnField
 
 
 class OtnOverheads(Enum):

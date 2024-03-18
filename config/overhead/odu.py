@@ -1,4 +1,5 @@
-from utils import OtnField, OtnFieldTypes, Position, Dimension
+from utils.field_types import OtnFieldTypes
+from utils.data_classes import OtnField, Position, Dimension
 
 from .base import OtnOverheads
 from .inner import TcmInnerFields, PmInnerFields
