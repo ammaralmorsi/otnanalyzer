@@ -1,27 +1,48 @@
 import unittest
 
 from utils import OverheadValue
+from config.overhead import OpuOverheads
+from utils.field_types import OtnPayloadTypes
+from generator.factory import GeneratorFactory
+from utils import OverheadGenerator
 
 
 class TestOPUOverheads(unittest.TestCase):
     def test_jc(self):
-        from generator.overhead.opu import JCOverheadGenerator
-        og = JCOverheadGenerator()
-        ov:OverheadValue = og.next_value
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.jc1.value)
+        ov: OverheadValue = g.next_value
+        self.assertEqual(ov.as_int, 0)
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.jc2.value)
+        ov: OverheadValue = g.next_value
+        self.assertEqual(ov.as_int, 0)
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.jc3.value)
+        ov: OverheadValue = g.next_value
+        self.assertEqual(ov.as_int, 0)
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.jc4.value)
+        ov: OverheadValue = g.next_value
+        self.assertEqual(ov.as_int, 0)
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.jc4.value)
+        ov: OverheadValue = g.next_value
+        self.assertEqual(ov.as_int, 0)
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.jc5.value)
+        ov: OverheadValue = g.next_value
+        self.assertEqual(ov.as_int, 0)
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.jc6.value)
+        ov: OverheadValue = g.next_value
         self.assertEqual(ov.as_int, 0)
 
-    def test_null_psi(self):
-        from generator.overhead.opu import NullPSIOverheadGenerator
-        og = NullPSIOverheadGenerator()
-        ov:OverheadValue = og.next_value
+    def test_psi(self):
+        GeneratorFactory.set_payload_type(payload_type=OtnPayloadTypes.NULL)
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.psi.value)
+        ov: OverheadValue = g.next_value
         self.assertEqual(int(ov.as_binary_string, 2), int("FD", 16))
-        ov:OverheadValue = og.next_value
+        ov:OverheadValue = g.next_value
         self.assertEqual(ov.as_int, int("FD", 16))
 
-    def test_prbs_psi(self):
-        from generator.overhead.opu import PRBSPSIOverheadGenerator
-        og = PRBSPSIOverheadGenerator()
-        ov:OverheadValue = og.next_value
+        GeneratorFactory.set_payload_type(payload_type=OtnPayloadTypes.PRBS)
+        g: OverheadGenerator = GeneratorFactory.get_overhead_generator(otn_field=OpuOverheads.psi.value)
+        ov: OverheadValue = g.next_value
+        ov:OverheadValue = g.next_value
         self.assertEqual(ov.as_int, int("FE", 16))
-        ov:OverheadValue = og.next_value
+        ov:OverheadValue = g.next_value
         self.assertEqual(int(ov.as_binary_string, 2), int("FE", 16))
