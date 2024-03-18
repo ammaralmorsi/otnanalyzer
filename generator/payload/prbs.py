@@ -15,4 +15,6 @@ class PRBSPayloadGenerator(PayloadGenerator):
 
     @property
     def next_value(self) -> PayloadValue:
-        return PayloadValue([self._get_next_prbs_byte() for _ in range(4 * 3808)])
+        payload = [self._get_next_prbs_byte() for _ in range(4 * 3807)]
+        payload.insert(3 * 3808, 0)  # NOTE: tool issue
+        return PayloadValue(payload)
