@@ -62,7 +62,7 @@ class Otu:
         column_headers = ["FAS", "MFAS", "SM", "GCC0", "OSMC", "RES"]
         data_frame = []
         for otu_oh in OtuOverheads:
-            combined_value = ' '.join(self.overhead_field_finder(otu_oh))
+            combined_value = ' '.join(self.otu_overhead_field_finder(otu_oh))
             data_frame.append([combined_value])
         transposed_data = list(zip(*data_frame))
 
@@ -85,7 +85,7 @@ test = [['0a', 'cc', 'a3', 'd5', '35', '15', '56', '5b', '31', 'cf', '42', '0f',
 
 x = Otu(test)
 
-# print(x.overhead_data)
-# print(x)
-# print(x.inner_overhead_field_data(OtuOverheads.sm))
-# print(x.overhead_field_finder(OtuOverheads.gcc0))
+#print(x.overhead_data)
+#print(x)
+#print(x.inner_overhead_field_data(OtuOverheads.sm))
+#print(x.otu_overhead_field_finder(OtuOverheads.gcc0))
