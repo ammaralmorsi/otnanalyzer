@@ -16,11 +16,14 @@ class Parser_API:
         Below are the APIs for the opu frame part
     """
 
+    def get_opu_payload(self):
+        return self.Opu.payload_data()
+
     def get_opu_overhead(self):
-        return self.Opu.opu_overhead_data()
+        return self.Opu.overhead_data()
 
     def get_opu_field(self, opu_field):
-        return self.Opu.opu_overhead_field_finder(opu_field)
+        return self.Opu.overhead_field_finder(opu_field)
 
     ##########################################################
 
@@ -29,13 +32,13 @@ class Parser_API:
     """
 
     def get_odu_overhead(self):
-        return self.Odu.odu_overhead_data()
+        return self.Odu.overhead_data()
 
     def get_odu_field(self, odu_field):
-        return self.Odu.odu_overhead_field_finder(odu_field)
+        return self.Odu.overhead_field_finder(odu_field)
 
-    def get_odu_inner_field(self , odu_parent_field , odu_inner_field):
-        pass
+    def get_odu_inner_field(self, odu_parent_field):
+        return self.Odu.inner_overhead_field_data(odu_parent_field)
 
 
     ############################################################
@@ -46,12 +49,12 @@ class Parser_API:
     """
 
     def get_otu_overhead(self):
-        return self.Otu.otu_overhead_data()
+        return self.Otu.overhead_data()
 
     def get_otu_field(self, otu_field):
-        return self.Otu.otu_overhead_field_finder(otu_field)
+        return self.Otu.overhead_field_finder(otu_field)
 
-    def get_otu_inner_field(self , otu_parent_field , otu_inner_field):
-        pass
+    def get_otu_inner_field(self , otu_parent_field):
+        return self.Otu.inner_overhead_field_data(otu_parent_field)
 
 
