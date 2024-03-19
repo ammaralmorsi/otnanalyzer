@@ -7,16 +7,16 @@ class Otu:
 
     def __init__(self, formatted_frame):
 
-        self.formatted_frame = formatted_frame
-        self.overhead_data = {}
-        self.overhead_constructor()
+        self._formatted_frame = formatted_frame
+        self._overhead_data = {}
+        self.__overhead_constructor()
 
-    def overhead_constructor(self):
+    def __overhead_constructor(self):
 
         for overhead in OtuOverheads:
             oh_value = overhead.value
-            self.overhead_data[overhead.value.name] = (
-                self.formatted_frame[oh_value.position.row]
+            self._overhead_data[overhead.value.name] = (
+                self._formatted_frame[oh_value.position.row]
                 [oh_value.position.col:oh_value.position.col+oh_value.dimension.ncols]
             )
 
@@ -33,7 +33,7 @@ class Otu:
 
         """
 
-        inner_field_value = self.overhead_data[parent_overhead_field.name]
+        inner_field_value = self._overhead_data[parent_overhead_field.name]
         inner_binary_list = [bin(int(hex_str, 16))[2:].zfill(8) for hex_str in inner_field_value]
         inner_field_binary_value = ''.join(inner_binary_list)
 
@@ -44,19 +44,19 @@ class Otu:
                 hex(int(inner_index_binary_value, 2))[2:] # the [2:] to remove the 0x when converting to hex
             )
 
+    @property
     def overhead_data(self):
-        return self.overhead_data
+        return self._overhead_data
 
     def overhead_field_finder(self, otu_oh):
 
-        return self.overhead_data[otu_oh.name]
+        return self._overhead_data[otu_oh.name]
 
     def inner_overhead_field_data(self , otu_oh_with_inner_fields):
         if len(otu_oh_with_inner_fields.value.inner_fields) > 0:
             return otu_oh_with_inner_fields.value.inner_fields
         else:
             return ""
-
 
     def __str__(self):
         column_headers = ["FAS", "MFAS", "SM", "GCC0", "OSMC", "RES"]
@@ -68,4 +68,5 @@ class Otu:
 
         print(tabulate(transposed_data, headers=column_headers, tablefmt="grid" , stralign="center" , numalign="center"))
         return ""
+
 

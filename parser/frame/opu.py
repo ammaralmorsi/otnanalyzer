@@ -4,26 +4,28 @@ from tabulate import tabulate
 class Opu:
 
     def __init__(self, formatted_frame):
-        self.formatted_frame = formatted_frame
-        self.overhead_data = {}
-        self.overhead_constructor()
+        self._formatted_frame = formatted_frame
+        self._overhead_data = {}
+        self.__overhead_constructor()
 
-    def overhead_constructor(self):
+    def __overhead_constructor(self):
         for overhead in OpuOverheads:
             oh_value = overhead.value
-            self.overhead_data[overhead.value.name] = (
-                self.formatted_frame[oh_value.position.row]
+            self._overhead_data[overhead.value.name] = (
+                self._formatted_frame[oh_value.position.row]
                 [oh_value.position.col:oh_value.position.col + oh_value.dimension.ncols]
             )
 
+    @property
     def payload_data(self):
-        return [row[16:3824] for row in self.formatted_frame]
+        return [row[16:3824] for row in self._formatted_frame]
 
+    @property
     def overhead_data(self):
-        return self.overhead_data
+        return self._overhead_data
 
     def overhead_field_finder(self, opu_oh):
-        return self.overhead_data[opu_oh.name]
+        return self._overhead_data[opu_oh.name]
 
     def __str__(self):
         header_itr = 0
@@ -44,4 +46,3 @@ class Opu:
         print(tabulate(first_row_transposed_data, headers=column_header[3], tablefmt="grid",
                        stralign="center", numalign="center"))
         return ""
-

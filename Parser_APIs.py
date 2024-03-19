@@ -17,10 +17,10 @@ class Parser_API:
     """
 
     def get_opu_payload(self):
-        return self.Opu.payload_data()
+        return self.Opu.payload_data
 
     def get_opu_overhead(self):
-        return self.Opu.overhead_data()
+        return self.Opu.overhead_data
 
     def get_opu_field(self, opu_field):
         return self.Opu.overhead_field_finder(opu_field)
@@ -32,7 +32,7 @@ class Parser_API:
     """
 
     def get_odu_overhead(self):
-        return self.Odu.overhead_data()
+        return self.Odu.overhead_data
 
     def get_odu_field(self, odu_field):
         return self.Odu.overhead_field_finder(odu_field)
@@ -49,7 +49,7 @@ class Parser_API:
     """
 
     def get_otu_overhead(self):
-        return self.Otu.overhead_data()
+        return self.Otu.overhead_data
 
     def get_otu_field(self, otu_field):
         return self.Otu.overhead_field_finder(otu_field)
