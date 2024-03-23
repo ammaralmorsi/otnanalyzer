@@ -1,25 +1,15 @@
 from config.overhead.odu import OduOverheads
 from tabulate import tabulate
 
-class Odu:
 
+class OduFrameParser:
     def __init__(self, formatted_frame):
-
         self._formatted_frame = formatted_frame
         self._overhead_data = {}
-        self.__overhead_constructor()
-
-    def __overhead_constructor(self):
-
-        for overhead in OduOverheads:
-            oh_value = overhead.value
-            self._overhead_data[oh_value.name] = (
-                self._formatted_frame[oh_value.position.row]
-                [oh_value.position.col:oh_value.position.col + oh_value.dimension.ncols]
-            )
-
-            if len(oh_value.inner_fields) > 0:
-                self.__construct_inner_field(oh_value)
+        for overhead in OduOverheads.get_fields():
+            self._overhead_data[overhead.name] = self._formatted_frame[overhead.position.row][overhead.position.col:overhead.position.col + overhead.dimension.ncols]
+            if len(overhead.inner_fields) > 0:
+                self.__construct_inner_field(overhead)
 
     def __construct_inner_field(self , parent_overhead_field):
         """
@@ -37,24 +27,23 @@ class Odu:
         for inner_index in range(len(parent_overhead_field.inner_fields)):
             inner_name = parent_overhead_field.inner_fields[inner_index]
             inner_index_binary_value = inner_field_binary_value[inner_name.position.col:inner_name.position.col + inner_name.dimension.ncols]
-            parent_overhead_field.inner_fields[inner_index] = (
-                hex(int(inner_index_binary_value, 2))[2:]
-            )
+            parent_overhead_field.inner_fields[inner_index] = hex(int(inner_index_binary_value, 2))[2:]
 
     @property
     def overhead_data(self):
         return self._overhead_data
 
-    def overhead_field_finder(self, odu_oh):
-        return self._overhead_data[odu_oh.name]
+    def overhead_field_finder(self, overhead):
+        return self._overhead_data[overhead.name]
 
-    def inner_overhead_field_data(self, odu_oh):
-        if len(odu_oh.value.inner_fields) > 0:
-            return odu_oh.value.inner_fields
+    def inner_overhead_field_data(self, overhead):
+        if len(overhead.value.inner_fields) > 0:
+            return overhead.value.inner_fields
         else:
             return ""
 
     def __str__(self):
+        res: str = ""
         all_headers = []
         sublist_lengths = [7, 5, 4]
 
@@ -71,15 +60,15 @@ class Odu:
 
         row_data_frame = []
         for otu_oh in OduOverheads:
-            if otu_oh.name == "tcm3" or otu_oh.name == "gcc1":
+            if otu_oh.value.name == OduOverheads.tcm3.value.name or otu_oh.value.name == OduOverheads.gcc1.value.name:
                 first_row_transposed_data = list(zip(*row_data_frame))
-                print(tabulate(first_row_transposed_data, headers=column_headers[start_index], tablefmt="grid",
-                               stralign="center", numalign="center"))
+                res += tabulate(first_row_transposed_data, headers=column_headers[start_index], tablefmt="grid", stralign="center", numalign="center")
+                res += "\n"
                 row_data_frame = []
                 start_index += 1
             combined_value = ' '.join(self.overhead_field_finder(otu_oh))
             row_data_frame.append([combined_value])
         first_row_transposed_data = list(zip(*row_data_frame))
-        print(tabulate(first_row_transposed_data, headers=column_headers[start_index], tablefmt="grid",
-                       stralign="center", numalign="center"))
-        return ""
+        res += tabulate(first_row_transposed_data, headers=column_headers[start_index], tablefmt="grid", stralign="center", numalign="center")
+        res += "\n"
+        return res

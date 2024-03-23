@@ -6,6 +6,6 @@ with open('data.pkl', 'rb') as file:
 
 x = Parser_API(loaded_data)
 
-print(x.get_opu_overhead())
-print(x.get_odu_overhead())
-print(x.get_otu_overhead())
+print(x.opu_frame_parser)
+print(x.odu_frame_parser)
+print(x.otu_frame_parser)

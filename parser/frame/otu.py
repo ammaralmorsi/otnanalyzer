@@ -1,27 +1,19 @@
 from config.overhead.otu import OtuOverheads
-from config.overhead.inner import SmInnerFields
 from tabulate import tabulate
 
 
-class Otu:
-
+class OtuFrameParser:
     def __init__(self, formatted_frame):
-
         self._formatted_frame = formatted_frame
         self._overhead_data = {}
-        self.__overhead_constructor()
-
-    def __overhead_constructor(self):
-
-        for overhead in OtuOverheads:
-            oh_value = overhead.value
-            self._overhead_data[overhead.value.name] = (
-                self._formatted_frame[oh_value.position.row]
-                [oh_value.position.col:oh_value.position.col+oh_value.dimension.ncols]
+        for overhead in OtuOverheads.get_fields():
+            self._overhead_data[overhead.name] = (
+                self._formatted_frame[overhead.position.row]
+                [overhead.position.col:overhead.position.col+overhead.dimension.ncols]
             )
 
-            if len(oh_value.inner_fields) > 0:
-                self.construct_inner_field(oh_value)
+            if len(overhead.inner_fields) > 0:
+                self.construct_inner_field(overhead)
 
     def construct_inner_field(self , parent_overhead_field):
         """
@@ -32,7 +24,6 @@ class Otu:
             Odu overhead field : that has a specific internal structure that are divided into inner fields
 
         """
-
         inner_field_value = self._overhead_data[parent_overhead_field.name]
         inner_binary_list = [bin(int(hex_str, 16))[2:].zfill(8) for hex_str in inner_field_value]
         inner_field_binary_value = ''.join(inner_binary_list)
@@ -48,17 +39,17 @@ class Otu:
     def overhead_data(self):
         return self._overhead_data
 
-    def overhead_field_finder(self, otu_oh):
+    def overhead_field_finder(self, overhead):
+        return self._overhead_data[overhead.name]
 
-        return self._overhead_data[otu_oh.name]
-
-    def inner_overhead_field_data(self , otu_oh_with_inner_fields):
-        if len(otu_oh_with_inner_fields.value.inner_fields) > 0:
-            return otu_oh_with_inner_fields.value.inner_fields
+    def inner_overhead_field_data(self , overhead):
+        if len(overhead.value.inner_fields) > 0:
+            return overhead.value.inner_fields
         else:
             return ""
 
     def __str__(self):
+        res: str = ""
         column_headers = ["FAS", "MFAS", "SM", "GCC0", "OSMC", "RES"]
         data_frame = []
         for otu_oh in OtuOverheads:
@@ -66,7 +57,6 @@ class Otu:
             data_frame.append([combined_value])
         transposed_data = list(zip(*data_frame))
 
-        print(tabulate(transposed_data, headers=column_headers, tablefmt="grid" , stralign="center" , numalign="center"))
-        return ""
-
-
+        res += tabulate(transposed_data, headers=column_headers, tablefmt="grid" , stralign="center" , numalign="center")
+        res += "\n"
+        return res
